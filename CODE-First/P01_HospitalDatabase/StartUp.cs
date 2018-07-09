@@ -1,15 +1,12 @@
-﻿using P01_HospitalDatabase.Data;
+﻿using System;
 
 namespace P01_HospitalDatabase
 {
     public class StartUp
     {
-        static void Main()
+        public static void Main()
         {
-            using (var hospitalContext = new HospitalContext())
-            {
-                //DatabaseInitializer.InitialSeed(hospitalContext);
-            }
+            Console.WriteLine("Hello World!");
         }
     }
 }

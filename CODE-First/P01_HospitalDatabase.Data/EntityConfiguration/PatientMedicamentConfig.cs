@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using P01_HospitalDatabase.Models;
 
-namespace P01_HospitalDatabase.EntityConfiguration
+namespace P01_HospitalDatabase.Data.EntityConfiguration
 {
     public class PatientMedicamentConfig : IEntityTypeConfiguration<PatientMedicament>
     {

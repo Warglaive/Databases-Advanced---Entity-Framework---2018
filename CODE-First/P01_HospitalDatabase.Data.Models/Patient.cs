@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using P01_HospitalDatabase.Models;
 
 namespace P01_HospitalDatabase.Data.Models
 {

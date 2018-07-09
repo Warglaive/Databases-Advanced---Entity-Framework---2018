@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using P01_HospitalDatabase.Data.Models;
-using P01_HospitalDatabase.EntityConfiguration;
-using P01_HospitalDatabase.Models;
+using P01_HospitalDatabase.Data.EntityConfiguration;
 
 namespace P01_HospitalDatabase.Data
 {
