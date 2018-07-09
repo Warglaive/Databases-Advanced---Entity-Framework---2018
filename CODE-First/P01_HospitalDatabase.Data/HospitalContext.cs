@@ -39,6 +39,7 @@ namespace P01_HospitalDatabase.Data
             modelBuilder.ApplyConfiguration(new PatientConfig());
             modelBuilder.ApplyConfiguration(new PatientMedicamentConfig());
             modelBuilder.ApplyConfiguration(new VisitationConfig());
+            modelBuilder.ApplyConfiguration(new DoctorsConfig());
         }
     }
 }

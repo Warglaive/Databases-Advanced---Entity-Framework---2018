@@ -1,5 +1,4 @@
-﻿using System;
-using P01_HospitalDatabase.Data;
+﻿using P01_HospitalDatabase.Data;
 using P01_HospitalDatabase.Initializer;
 
 namespace P01_HospitalDatabase

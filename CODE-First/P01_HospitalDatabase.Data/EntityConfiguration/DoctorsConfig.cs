@@ -11,6 +11,10 @@ namespace P01_HospitalDatabase.Data.EntityConfiguration
             builder.HasKey(x => x.DoctorId);
             builder.Property(x => x.Name).HasMaxLength(100).IsUnicode();
             builder.Property(x => x.Specialty).HasMaxLength(100).IsUnicode();
+
+            builder.HasMany(x => x.Visitations)
+                .WithOne(x => x.Doctor)
+                .HasForeignKey(x => x.DoctorId);
         }
     }
 }
