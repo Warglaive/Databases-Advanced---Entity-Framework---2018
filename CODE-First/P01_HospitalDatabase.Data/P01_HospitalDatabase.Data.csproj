@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\P01_HospitalDatabase\P01_HospitalDatabase.csproj" />
+    <ProjectReference Include="..\P01_HospitalDatabase.Data.Models\P01_HospitalDatabase.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>
