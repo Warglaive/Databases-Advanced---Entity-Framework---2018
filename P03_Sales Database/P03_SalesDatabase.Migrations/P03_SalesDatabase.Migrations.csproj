@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\P03_SalesDatabase.Data\P03_SalesDatabase.Data.csproj" />
+  </ItemGroup>
+
 </Project>

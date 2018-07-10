@@ -10,8 +10,7 @@ namespace P03_SalesDatabase.Data
         {
             builder.HasKey(x => x.StoreId);
             builder.Property(x => x.Name).HasMaxLength(80).IsUnicode();
-
-            //possible bug
+            
             builder.HasMany(x => x.Sales)
                 .WithOne(x => x.Store)
                 .HasForeignKey(x => x.SaleId);

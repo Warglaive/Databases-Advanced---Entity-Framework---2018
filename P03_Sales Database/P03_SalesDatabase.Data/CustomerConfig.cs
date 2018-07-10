@@ -11,10 +11,7 @@ namespace P03_SalesDatabase.Data
             builder.HasKey(x => x.CustomerId);
             builder.Property(x => x.Name).HasMaxLength(100).IsUnicode();
             builder.Property(x => x.Email).HasMaxLength(80).IsUnicode(false);
-
-            //builder.HasMany(x => x.Sales)
-            //    .WithOne(x => x.Customer)
-            //    .HasForeignKey(x => x.SaleId);
+            
         }
     }
 }

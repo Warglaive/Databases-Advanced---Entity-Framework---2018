@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace P03_SalesDatabase.Data.Migrations
+namespace P03_SalesDatabase.Migrations.Migrations
 {
     public partial class SalesAddDateDefault : Migration
     {

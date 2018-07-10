@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using P03_SalesDatabase.Data;
+using P03_SalesDatabase.Migrations;
 
-namespace P03_SalesDatabase.Data.Migrations
+namespace P03_SalesDatabase.Migrations.Migrations
 {
     [DbContext(typeof(SalesDbContext))]
-    [Migration("20180710141027_ProductsAddColumnDescription")]
+    [Migration("20180710182538_ProductsAddColumnDescription")]
     partial class ProductsAddColumnDescription
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

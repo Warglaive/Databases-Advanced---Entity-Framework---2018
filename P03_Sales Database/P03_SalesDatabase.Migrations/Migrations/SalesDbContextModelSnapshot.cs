@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using P03_SalesDatabase.Data;
+using P03_SalesDatabase.Migrations;
 
-namespace P03_SalesDatabase.Data.Migrations
+namespace P03_SalesDatabase.Migrations.Migrations
 {
     [DbContext(typeof(SalesDbContext))]
-    [Migration("20180710141037_SalesAddDateDefault")]
-    partial class SalesAddDateDefault
+    partial class SalesDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

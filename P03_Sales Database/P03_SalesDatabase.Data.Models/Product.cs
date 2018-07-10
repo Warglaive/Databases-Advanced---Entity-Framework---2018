@@ -6,7 +6,6 @@ namespace P03_SalesDatabase.Data.Models
     {
         public Product()
         {
-
             this.Sales = new List<Sale>();
         }
         public int ProductId { get; set; }

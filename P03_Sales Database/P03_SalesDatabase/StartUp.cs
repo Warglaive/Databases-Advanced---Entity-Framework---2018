@@ -6,10 +6,6 @@ namespace P03_SalesDatabase
     {
         public static void Main()
         {
-            using (var context = new SalesDbContext())
-            {
-                context.Database.EnsureCreated();
-            }
         }
     }
 }
