@@ -32,7 +32,7 @@ namespace P03_SalesDatabase.Data.Migrations
                     Name = table.Column<string>(maxLength: 50, nullable: true),
                     Quantity = table.Column<decimal>(nullable: false),
                     Price = table.Column<decimal>(nullable: false),
-                    Description = table.Column<string>(maxLength: 250, nullable: true)
+                    Description = table.Column<string>(maxLength: 250, nullable: true, defaultValue: "No description")
                 },
                 constraints: table =>
                 {
@@ -57,7 +57,7 @@ namespace P03_SalesDatabase.Data.Migrations
                 columns: table => new
                 {
                     SaleId = table.Column<int>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false, defaultValueSql: "GETDATE()"),
                     ProductId = table.Column<int>(nullable: false),
                     CustomerId = table.Column<int>(nullable: false),
                     StoreId = table.Column<int>(nullable: false)

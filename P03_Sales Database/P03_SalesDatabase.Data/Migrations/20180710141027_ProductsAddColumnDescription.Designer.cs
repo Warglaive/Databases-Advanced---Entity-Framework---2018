@@ -10,7 +10,7 @@ using P03_SalesDatabase.Data;
 namespace P03_SalesDatabase.Data.Migrations
 {
     [DbContext(typeof(SalesDbContext))]
-    [Migration("20180710132607_ProductsAddColumnDescription")]
+    [Migration("20180710141027_ProductsAddColumnDescription")]
     partial class ProductsAddColumnDescription
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,7 +49,9 @@ namespace P03_SalesDatabase.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
-                        .HasMaxLength(250);
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(250)
+                        .HasDefaultValue("No description");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
@@ -70,7 +72,9 @@ namespace P03_SalesDatabase.Data.Migrations
 
                     b.Property<int>("CustomerId");
 
-                    b.Property<DateTime>("Date");
+                    b.Property<DateTime>("Date")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<int>("ProductId");
 
