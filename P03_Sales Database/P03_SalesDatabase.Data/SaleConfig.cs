@@ -9,7 +9,6 @@ namespace P03_SalesDatabase.Data
         public void Configure(EntityTypeBuilder<Sale> builder)
         {
             builder.HasKey(x => x.SaleId);
-            //
         }
     }
 }

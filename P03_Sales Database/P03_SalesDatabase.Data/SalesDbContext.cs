@@ -11,7 +11,6 @@ namespace P03_SalesDatabase.Data
         public DbSet<Sale> Sales { get; set; }
 
 
-        //possible bug - remove base
         public SalesDbContext(DbContextOptions options)
             : base(options)
         {
