@@ -5,11 +5,11 @@ namespace P03_FootballBetting.Data.Models
 {
     public class PlayerStatistic
     {
-        public PlayerStatistic()
-        {
-            this.Players = new List<Player>();
-            this.Games = new List<Game>();
-        }
+        //public PlayerStatistic()
+        //{
+        //    this.Players = new List<Player>();
+        //    this.Games = new List<Game>();
+        //}
         public Game Game { get; set; }
         public int GameId { get; set; }
         public Player Player { get; set; }
@@ -18,7 +18,7 @@ namespace P03_FootballBetting.Data.Models
         public int Assists { get; set; }
         public int MinutesPlayed { get; set; }
 
-        public ICollection<Player> Players { get; set; }
-        public ICollection<Game> Games { get; set; }
+        //public ICollection<Player> Players { get; set; }
+        //public ICollection<Game> Games { get; set; }
     }
 }

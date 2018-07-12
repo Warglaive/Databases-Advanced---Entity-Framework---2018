@@ -8,15 +8,13 @@ namespace P03_FootballBetting.Data.TableRelationsConfig
     {
         public void Configure(EntityTypeBuilder<Bet> builder)
         {
+            builder.HasKey(x => x.BetId);
             builder.Property(x => x.Prediction).IsRequired();
 
             builder.HasOne(x => x.Game)
                 .WithMany(x => x.Bets)
                 .HasForeignKey(x => x.BetId);
-
-            builder.HasOne(x => x.User)
-                .WithMany(x => x.Bets)
-                .HasForeignKey(x => x.BetId);
+            
         }
     }
 }

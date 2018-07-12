@@ -15,10 +15,6 @@ namespace P03_FootballBetting.Data.TableRelationsConfig
             builder.HasOne(x => x.Position)
                 .WithMany(x => x.Players)
                 .HasForeignKey(x => x.PlayerId);
-
-            builder.HasMany(x => x.PlayerStatistics)
-                .WithOne(x => x.Player)
-                .HasForeignKey(x => x.PlayerId);
         }
     }
 }

@@ -8,6 +8,8 @@ namespace P03_FootballBetting.Data.TableRelationsConfig
     {
         public void Configure(EntityTypeBuilder<Team> builder)
         {
+            builder.HasKey(t => t.TeamId);
+
             builder.HasOne(x => x.Town)
                 .WithMany(x => x.Teams)
                 .HasForeignKey(x => x.TeamId);

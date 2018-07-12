@@ -21,7 +21,7 @@ namespace P03_FootballBetting.Data.Models
         public double HomeTeamBetRate { get; set; }
         public double AwayTeamBetRate { get; set; }
         public double DrawBetRate { get; set; }
-        public string Result { get; set; }
+        public decimal Result { get; set; }
 
         public ICollection<PlayerStatistic> PlayerStatistics { get; set; }
         public ICollection<Bet> Bets { get; set; }

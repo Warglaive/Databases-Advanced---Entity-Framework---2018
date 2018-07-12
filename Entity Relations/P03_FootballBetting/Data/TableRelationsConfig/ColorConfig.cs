@@ -8,6 +8,8 @@ namespace P03_FootballBetting.Data.TableRelationsConfig
     {
         public void Configure(EntityTypeBuilder<Color> builder)
         {
+            builder.HasKey(x => x.ColorId);
+
             builder.HasMany(x => x.PrimaryKitTeams)
                 .WithOne(x => x.PrimaryKitColor)
                 .HasForeignKey(x => x.PrimaryKitColorId);
