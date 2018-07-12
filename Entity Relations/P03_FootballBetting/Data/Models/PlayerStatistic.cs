@@ -16,7 +16,7 @@ namespace P03_FootballBetting.Data.Models
         public int PlayerId { get; set; }
         public int ScoredGoals { get; set; }
         public int Assists { get; set; }
-        public DateTime MinutesPlayed { get; set; }
+        public int MinutesPlayed { get; set; }
 
         public ICollection<Player> Players { get; set; }
         public ICollection<Game> Games { get; set; }

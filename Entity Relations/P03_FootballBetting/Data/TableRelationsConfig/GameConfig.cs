@@ -25,7 +25,6 @@ namespace P03_FootballBetting.Data.TableRelationsConfig
                 .WithMany(x => x.HomeGames)
                 .HasForeignKey(x => x.AwayTeamId);
             //
-          
         }
     }
 }

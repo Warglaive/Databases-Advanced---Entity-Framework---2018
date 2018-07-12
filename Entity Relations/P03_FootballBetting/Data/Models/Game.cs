@@ -8,7 +8,7 @@ namespace P03_FootballBetting.Data.Models
         public Game()
         {
             this.Bets = new List<Bet>();
-            this.Players = new List<Player>();
+            this.PlayerStatistics = new List<PlayerStatistic>();
         }
         public int GameId { get; set; }
         public Team HomeTeam { get; set; }
@@ -23,7 +23,7 @@ namespace P03_FootballBetting.Data.Models
         public double DrawBetRate { get; set; }
         public string Result { get; set; }
 
+        public ICollection<PlayerStatistic> PlayerStatistics { get; set; }
         public ICollection<Bet> Bets { get; set; }
-        public ICollection<Player> Players { get; set; }
     }
 }
