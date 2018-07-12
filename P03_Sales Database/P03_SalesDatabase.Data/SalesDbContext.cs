@@ -26,6 +26,7 @@ namespace P03_SalesDatabase.Data
             {
                 optionsBuilder.UseSqlServer(Configuration.ConnectionString);
             }
+            base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,6 +35,7 @@ namespace P03_SalesDatabase.Data
             modelBuilder.ApplyConfiguration(new CustomerConfig());
             modelBuilder.ApplyConfiguration(new StoreConfig());
             modelBuilder.ApplyConfiguration(new SaleConfig());
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
