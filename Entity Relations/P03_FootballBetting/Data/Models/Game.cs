@@ -1,11 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace P03_FootballBetting.Models
+namespace P03_FootballBetting.Data.Models
 {
     public class Game
     {
+        public Game()
+        {
+            this.Bets = new List<Bet>();
+            this.Players = new List<Player>();
+        }
         public int GameId { get; set; }
+        public Team HomeTeam { get; set; }
         public int HomeTeamId { get; set; }
+        public Team AwayTeam { get; set; }
         public int AwayTeamId { get; set; }
         public int HomeTeamGoals { get; set; }
         public int AwayTeamGoals { get; set; }
@@ -14,5 +22,8 @@ namespace P03_FootballBetting.Models
         public double AwayTeamBetRate { get; set; }
         public double DrawBetRate { get; set; }
         public string Result { get; set; }
+
+        public ICollection<Bet> Bets { get; set; }
+        public ICollection<Player> Players { get; set; }
     }
 }
