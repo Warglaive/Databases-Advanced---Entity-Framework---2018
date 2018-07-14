@@ -9,7 +9,9 @@ namespace P01_BillsPaymentSystem.Data.EntityConfig
     {
         public void Configure(EntityTypeBuilder<CreditCard> builder)
         {
-            builder.HasKey(x => x.CreditCardId);
+            builder.HasOne(x => x.PaymentMethod)
+                .WithOne(x => x.CreditCard)
+                .HasForeignKey<PaymentMethod>(x => x.CreditCardId);
         }
     }
 }
