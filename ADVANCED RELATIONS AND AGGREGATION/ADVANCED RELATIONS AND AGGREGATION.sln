@@ -5,9 +5,11 @@ VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P01_BillsPaymentSystem", "P01_BillsPaymentSystem\P01_BillsPaymentSystem.csproj", "{DD681496-166C-47EA-8AE2-D71DBD0A25E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P01_BillsPaymentSystem.Data", "P01_BillsPaymentSystem.Data\P01_BillsPaymentSystem.Data.csproj", "{6824F9C5-096D-450A-937F-1A4BC7372BBA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P01_BillsPaymentSystem.Data", "P01_BillsPaymentSystem.Data\P01_BillsPaymentSystem.Data.csproj", "{6824F9C5-096D-450A-937F-1A4BC7372BBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P01_BillsPaymentSystem.Data.Models", "P01_BillsPaymentSystem.Data.Models\P01_BillsPaymentSystem.Data.Models.csproj", "{38710994-DE66-48B0-83E8-18F064AF8364}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P01_BillsPaymentSystem.Data.Models", "P01_BillsPaymentSystem.Data.Models\P01_BillsPaymentSystem.Data.Models.csproj", "{38710994-DE66-48B0-83E8-18F064AF8364}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P01_BillsPaymentSysten.Initializer", "P01_BillsPaymentSysten.Initializer\P01_BillsPaymentSysten.Initializer.csproj", "{2765001E-D2E5-49E0-B287-E33583C52E9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{38710994-DE66-48B0-83E8-18F064AF8364}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38710994-DE66-48B0-83E8-18F064AF8364}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38710994-DE66-48B0-83E8-18F064AF8364}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2765001E-D2E5-49E0-B287-E33583C52E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2765001E-D2E5-49E0-B287-E33583C52E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2765001E-D2E5-49E0-B287-E33583C52E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2765001E-D2E5-49E0-B287-E33583C52E9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

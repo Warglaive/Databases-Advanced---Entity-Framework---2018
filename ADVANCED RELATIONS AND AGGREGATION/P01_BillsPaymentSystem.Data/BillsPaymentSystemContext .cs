@@ -10,6 +10,7 @@ namespace P01_BillsPaymentSystem.Data
         public DbSet<CreditCard> CreditCards { get; set; }
         public DbSet<PaymentMethod> PaymentMethods { get; set; }
         public DbSet<User> Users { get; set; }
+
         public BillsPaymentSystemContext()
         {
         }
