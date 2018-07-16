@@ -10,7 +10,7 @@ namespace P01_BillsPaymentSystem.Data.Models
         [Required]
         public int Id { get; set; }
         [Required]
-        public Type Type { get; set; }
+        public PaymentMethodType Type { get; set; }
         [Required]
         public int UserId { get; set; }
         public User User { get; set; }
