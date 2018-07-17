@@ -13,27 +13,28 @@ namespace BookShop
         public static void Main()
         {
             var context = new BookShopContext();
-            var input = Console.ReadLine();
+            var input = Console.ReadLine().ToLower();
             Console.WriteLine(GetBooksByCategory(context, input));
         }
 
         public static string GetBooksByCategory(BookShopContext context, string input)
         {
-            var TotalTitles = new List<string>();
-            var inputArgs = input.Split(new[] { ' ' }
-                , StringSplitOptions.RemoveEmptyEntries);
+            var sb = new StringBuilder();
 
-            var currentCategoryTitles = context.Books
-                .Include(x => x.BookCategories)
-                .Where(b => b.BookCategories
-                    .Any(c => inputArgs.Contains(c.Category.Name.ToLower())))
-                .Select(t => t.Title)
-                .OrderBy(t => t);
+            var categoryNames = input.ToLower().Split();
 
+            var bookTitles = context.Books
+                .Include(b => b.BookCategories)
+                .Where(b => b.BookCategories.Any(c => categoryNames.Contains(c.Category.Name.ToLower())))
+                .Select(b => b.Title)
+                .OrderBy(b => b);
 
-            TotalTitles.AddRange(currentCategoryTitles);
+            foreach (var bookTitle in bookTitles)
+            {
+                sb.AppendLine(bookTitle);
+            }
 
-            return string.Join(Environment.NewLine, TotalTitles);
+            return sb.ToString().Trim();
 
         }
         public static string GetBooksNotRealeasedIn(BookShopContext context, int year)
