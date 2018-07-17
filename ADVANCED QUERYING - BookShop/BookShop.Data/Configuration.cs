@@ -2,6 +2,6 @@
 {
     internal class Configuration
     {
-        internal static string ConnectionString => "Server=.;Database=BookShop;Integrated Security=True;";
+        internal static string ConnectionString => @"Server=WARGLAIVE\SQLEXPRESS;Database=BookShopDb;Integrated Security=True;";
     }
 }
