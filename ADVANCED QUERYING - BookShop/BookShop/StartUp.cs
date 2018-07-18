@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using BookShop.Data;
@@ -14,9 +14,46 @@ namespace BookShop
         {
             var context = new BookShopContext();
             var input = Console.ReadLine().ToLower();
-            Console.WriteLine(GetBooksByCategory(context, input));
+            Console.WriteLine(GetAuthorNamesEndingIn(context, input));
         }
 
+        public static string GetBookTitlesContaining(BookShopContext context, string input)
+        {
+            return string.Join(Environment.NewLine, context.Books.Where(x => x.Title.ToLower().Contains(input.ToLower()))
+                .Select(t => t.Title)
+                .OrderBy(x => x)).Trim();
+        }
+        public static string GetAuthorNamesEndingIn(BookShopContext context, string input)
+        {
+            var sb = new StringBuilder();
+
+            var authors = context.Authors
+                .Where(a => a.FirstName.EndsWith(input))
+                .Select(a => new
+                {
+                    FullName = $"{a.FirstName} {a.LastName}"
+                })
+                .OrderBy(a => a.FullName)
+                .ToList();
+
+            authors.ForEach(a => sb.AppendLine(a.FullName));
+
+            return sb.ToString().Trim();
+        }
+        public static string GetBooksReleasedBefore(BookShopContext context, string inputDate)
+        {
+            var date = DateTime.ParseExact(inputDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            var result = context.Books
+                .Where(b => b.ReleaseDate < date)
+                .OrderByDescending(x => x.ReleaseDate)
+                .ToList();
+            var stringBuilder = new StringBuilder();
+            foreach (var book in result)
+            {
+                stringBuilder.AppendLine($"{book.Title} - {book.EditionType.ToString()} - ${book.Price:f2}");
+            }
+            return stringBuilder.ToString().Trim();
+        }
         public static string GetBooksByCategory(BookShopContext context, string input)
         {
             var sb = new StringBuilder();
