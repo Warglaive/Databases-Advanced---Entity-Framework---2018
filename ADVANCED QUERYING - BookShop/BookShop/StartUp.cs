@@ -13,10 +13,48 @@ namespace BookShop
         public static void Main()
         {
             var context = new BookShopContext();
-            var input = Console.ReadLine();
-            Console.WriteLine(GetBooksByAuthor(context, input));
+            Console.WriteLine(CountCopiesByAuthor(context));
         }
 
+        public static string CountCopiesByAuthor(BookShopContext context)
+        {
+            var sb = new StringBuilder();
+
+            var authorBooks = context
+                .Authors
+                .Include(a => a.Books)
+                .Select(a => new
+                {
+                    AuthorName = $"{a.FirstName} {a.LastName}",
+                    BookCopies = a.Books.Sum(b => b.Copies)
+
+                })
+                .OrderByDescending(a => a.BookCopies)
+                .ToList();
+
+            authorBooks.ForEach(a => sb.AppendLine($"{a.AuthorName} - {a.BookCopies}"));
+
+            return sb.ToString().Trim();
+            //    var result = context
+            //        .Authors
+            //        .Include(a => a.Books)
+            //        .Select(x => new
+            //        {
+            //            name = x.FirstName + " " + x.LastName,
+            //            Copies = x.Books.Sum(c => c.Copies)
+
+            //        }).OrderByDescending(x => x.Copies).ToList();
+
+            //    var sb = new StringBuilder();
+            //    result.ForEach(x => sb.AppendLine($"{x.name} - {x.Copies}"));
+            //    return sb.ToString().Trim();
+        }
+        public static int CountBooks(BookShopContext context, int lengthCheck)
+        {
+            var result = context.Books.Where(t => t.Title.Length > lengthCheck)
+                .Select(x => x.Title).Count();
+            return result;
+        }
         public static string GetBooksByAuthor(BookShopContext context, string input)
         {
             var result = context.Books
