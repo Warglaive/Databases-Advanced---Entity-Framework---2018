@@ -13,10 +13,27 @@ namespace BookShop
         public static void Main()
         {
             var context = new BookShopContext();
-            var input = Console.ReadLine().ToLower();
-            Console.WriteLine(GetAuthorNamesEndingIn(context, input));
+            var input = Console.ReadLine();
+            Console.WriteLine(GetBooksByAuthor(context, input));
         }
 
+        public static string GetBooksByAuthor(BookShopContext context, string input)
+        {
+            var result = context.Books
+                .Include(x => x.Author)
+                .Where(x => x.Author.LastName.ToLower()
+                .StartsWith(input.ToLower()))
+                .OrderBy(a => a.BookId)
+                .Select(x => new
+                {
+                    x.Title,
+                    FullName = x.Author.FirstName + " " + x.Author.LastName
+                }).ToList();
+
+            var sb = new StringBuilder();
+            result.ForEach(b => sb.AppendLine($"{b.Title} ({b.FullName})"));
+            return sb.ToString().Trim();
+        }
         public static string GetBookTitlesContaining(BookShopContext context, string input)
         {
             return string.Join(Environment.NewLine, context.Books.Where(x => x.Title.ToLower().Contains(input.ToLower()))
