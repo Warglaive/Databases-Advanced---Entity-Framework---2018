@@ -7,7 +7,9 @@
 
     public class BookShopContext : DbContext
     {
-		public BookShopContext() { }
+        public BookShopContext()
+        {
+        }
 
 		public BookShopContext(DbContextOptions options)
 			:base(options) { }

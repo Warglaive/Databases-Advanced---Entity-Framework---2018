@@ -13,9 +13,78 @@ namespace BookShop
         public static void Main()
         {
             var context = new BookShopContext();
-            Console.WriteLine(CountCopiesByAuthor(context));
+            Console.WriteLine(RemoveBooks(context));
         }
 
+        public static int RemoveBooks(BookShopContext context)
+        {
+            var count = context.Books.Count(c => c.Copies < 4200);
+            var books = context.Books.Where(c => c.Copies < 4200).ToArray();
+            context.Books.RemoveRange(books);
+            context.SaveChanges();
+            return count;
+        }
+        public static void IncreasePrices(BookShopContext context)
+        {
+            var books = context.Books.Where(x => x.ReleaseDate.Value.Year < 2010);
+            foreach (var book in books)
+            {
+                book.Price += 5;
+            }
+            context.SaveChanges();
+        }
+        public static string GetMostRecentBooks(BookShopContext context)
+        {
+            var result = context
+                .Categories
+                .Include(b => b.CategoryBooks)
+                .ThenInclude(bc => bc.Book)
+                .OrderBy(x => x.Name)
+                .Select(x => new
+                {
+                    CategoryName = x.Name,
+                    Book = x.CategoryBooks
+                    .OrderByDescending(b => b.Book.ReleaseDate)
+                    .Take(3)
+                    .Select(b => new
+                    {
+                        BookTitle = b.Book.Title,
+                        b.Book.ReleaseDate.Value.Year
+                    }).ToList()
+                })
+                .ToList();
+
+
+            var sb = new StringBuilder();
+            //result.ForEach(x => sb.AppendLine($"{x.Category}"));
+            foreach (var category in result)
+            {
+                sb.AppendLine($"--{category.CategoryName}");
+                foreach (var bookCategory in category.Book)
+                {
+                    sb.AppendLine($"{bookCategory.BookTitle} ({bookCategory.Year})");
+                }
+            }
+            return sb.ToString().Trim();
+
+        }
+        public static string GetTotalProfitByCategory(BookShopContext context)
+        {
+            var result = context.Categories
+                .Include(b => b.CategoryBooks)
+                .ThenInclude(cb => cb.Book)
+                .Select(x => new
+                {
+                    name = x.Name,
+                    profit = x.CategoryBooks.Sum(v => v.Book.Copies * v.Book.Price)
+                }).OrderByDescending(t => t.profit)
+                .ThenBy(n => n.name).ToList();
+
+
+            var sb = new StringBuilder();
+            result.ForEach(k => sb.AppendLine($"{k.name} ${k.profit:f2}"));
+            return sb.ToString().Trim();
+        }
         public static string CountCopiesByAuthor(BookShopContext context)
         {
             var sb = new StringBuilder();
