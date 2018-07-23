@@ -1,5 +1,7 @@
 ﻿using System;
+using AutoMapper;
 using Banicharnica.App.Core;
+using Banicharnica.App.Core.Contracts;
 using Banicharnica.Data;
 using Banicharnica.Services;
 using Banicharnica.Services.Contracts;
@@ -23,7 +25,13 @@ namespace Banicharnica.App
 
             serviceCollection.AddDbContext<BanicharnicaContext>(opts => opts.UseSqlServer(Configuration.ConnectionString));
 
+            serviceCollection.AddAutoMapper(x => x.AddProfile<BanicharnicaProfile>());
+
             serviceCollection.AddTransient<IDbInitizlizerService, DbInitizlizerService>();
+
+            serviceCollection.AddTransient<ICommandInterpreter, CommandInterpreter>();
+
+            serviceCollection.AddTransient<IEmployeeController, IEmployeeController>();
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
             return serviceProvider;
