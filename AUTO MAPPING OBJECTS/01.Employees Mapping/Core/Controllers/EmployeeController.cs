@@ -63,13 +63,12 @@ namespace Banicharnica.App.Core.Controllers
 
         public EmployeePersonalInfoDto GetEmployeePersonalInfo(int employeeId)
         {
-            var employeePersonalInfo = this.context.Employees.
-                Where(x => x.Id == employeeId)
-                .ProjectTo<EmployeePersonalInfoDto>()
-                .SingleOrDefault();
-            if (employeePersonalInfo != null)
+            var employee = this.context.Employees.Find(employeeId);
+            var employeeDto = Mapper.Map<EmployeePersonalInfoDto>(employee);
+
+            if (employee != null)
             {
-                return employeePersonalInfo;
+                return employeeDto;
             }
             throw new ArgumentException(InvalidIdMessage);
         }
