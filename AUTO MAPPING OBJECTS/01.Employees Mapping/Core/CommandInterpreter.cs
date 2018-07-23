@@ -19,15 +19,20 @@ namespace Banicharnica.App.Core
 
             var type = Assembly.GetCallingAssembly().GetTypes()
                 .FirstOrDefault(x => x.Name == commandName);
-            var constructor = type.GetConstructors().First();
 
-            var consructorParameters = constructor.GetParameters().Select(x => x.ParameterType);
+            if (type != null)
+            {
+                var constructor = type.GetConstructors().First();
 
-            var service = consructorParameters.Select(this.serviceProvider.GetService).ToArray();
+                var consructorParameters = constructor.GetParameters().Select(x => x.ParameterType);
 
-            var command = (ICommand)constructor.Invoke(service);
-            var result = command.Execute(args);
-            return result;
+                var service = consructorParameters.Select(this.serviceProvider.GetService).ToArray();
+
+                var command = (ICommand)constructor.Invoke(service);
+                var result = command.Execute(args);
+                return result;
+            }
+            throw new ArgumentException("invalid command");
         }
     }
 }

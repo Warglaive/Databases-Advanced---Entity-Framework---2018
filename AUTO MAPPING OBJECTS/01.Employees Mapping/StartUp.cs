@@ -2,6 +2,7 @@
 using AutoMapper;
 using Banicharnica.App.Core;
 using Banicharnica.App.Core.Contracts;
+using Banicharnica.App.Core.Controllers;
 using Banicharnica.Data;
 using Banicharnica.Services;
 using Banicharnica.Services.Contracts;
@@ -23,6 +24,7 @@ namespace Banicharnica.App
         {
             var serviceCollection = new ServiceCollection();
 
+
             serviceCollection.AddDbContext<BanicharnicaContext>(opts => opts.UseSqlServer(Configuration.ConnectionString));
 
             serviceCollection.AddAutoMapper(x => x.AddProfile<BanicharnicaProfile>());
@@ -31,9 +33,11 @@ namespace Banicharnica.App
 
             serviceCollection.AddTransient<ICommandInterpreter, CommandInterpreter>();
 
-            serviceCollection.AddTransient<IEmployeeController, IEmployeeController>();
+            serviceCollection.AddTransient<IEmployeeController, EmployeeController>();
+
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
+
             return serviceProvider;
         }
     }

@@ -36,7 +36,6 @@ namespace Banicharnica.App.Core.Controllers
                 this.context.SaveChanges();
             }
             throw new ArgumentException(InvalidIdMessage);
-
         }
 
         public void SetBirthday(int employeeId, DateTime date)
@@ -52,13 +51,12 @@ namespace Banicharnica.App.Core.Controllers
 
         public EmployeeDto GetEmployeeInfo(int employeeId)
         {
-            var employee = this.context.Employees.
-                Where(x => x.Id == employeeId)
-                .ProjectTo<EmployeeDto>()
-                .SingleOrDefault();
+            var employee = this.context.Employees.Find(employeeId);
+            var employeeDto = Mapper.Map<EmployeeDto>(employee);
+            
             if (employee != null)
             {
-                return employee;
+                return employeeDto;
             }
             throw new ArgumentException(InvalidIdMessage);
         }
