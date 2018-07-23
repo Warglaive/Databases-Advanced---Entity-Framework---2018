@@ -35,6 +35,8 @@ namespace Banicharnica.App
 
             serviceCollection.AddTransient<IEmployeeController, EmployeeController>();
 
+            serviceCollection.AddTransient<IManagerController,
+                ManagerController>();
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 

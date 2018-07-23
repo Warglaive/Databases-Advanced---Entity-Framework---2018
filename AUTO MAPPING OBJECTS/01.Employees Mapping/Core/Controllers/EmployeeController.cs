@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Banicharnica.App.Core.Contracts;
 using Banicharnica.App.Core.DTOs;
 using Banicharnica.Data;
@@ -53,7 +53,7 @@ namespace Banicharnica.App.Core.Controllers
         {
             var employee = this.context.Employees.Find(employeeId);
             var employeeDto = Mapper.Map<EmployeeDto>(employee);
-            
+
             if (employee != null)
             {
                 return employeeDto;
@@ -71,6 +71,22 @@ namespace Banicharnica.App.Core.Controllers
                 return employeeDto;
             }
             throw new ArgumentException(InvalidIdMessage);
+        }
+
+        public List<EmployeeDto> GetEmployeesOlderThan(int age)
+        {
+            var employees = this.context.Employees.Where(a => DateTime.Now.Year - a.Birthday.Value.Year > age)
+                .ToList();
+
+            var employeeDtos = new List<EmployeeDto>();
+
+            foreach (var employee in employees)
+            {
+                var employeeDto = Mapper.Map<EmployeeDto>(employee);
+                employeeDtos.Add(employeeDto);
+            }
+
+            return employeeDtos;
         }
     }
 }

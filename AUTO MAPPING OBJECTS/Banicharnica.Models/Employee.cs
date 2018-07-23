@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Banicharnica.Models
@@ -18,5 +19,10 @@ namespace Banicharnica.Models
 
         public DateTime? Birthday { get; set; }
         public string Address { get; set; }
+
+        public int? ManagerId { get; set; }
+        public Employee Manager { get; set; }
+        public ICollection<Employee> ManagerEmployees { get; set; }
+
     }
 }

@@ -24,7 +24,12 @@ namespace Banicharnica.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Employee>(e =>
+            {
+                e.HasOne(x => x.Manager)
+                    .WithMany(a => a.ManagerEmployees)
+                    .HasForeignKey(c => c.ManagerId);
+            });
         }
     }
 }
