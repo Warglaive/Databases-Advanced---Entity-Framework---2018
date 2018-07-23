@@ -1,4 +1,4 @@
-﻿namespace EmployeesDb.Data
+﻿namespace Banicharnica.Data
 {
     public class Configuration
     {

@@ -1,4 +1,4 @@
-﻿namespace EmployeesDb.DTOs
+﻿namespace P01_EmployeesMapping.DTOs
 {
     public class EmployeeDto
     {

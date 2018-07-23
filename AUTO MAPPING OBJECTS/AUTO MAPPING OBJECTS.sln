@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeesDb", "01.Employees Mapping\EmployeesDb.csproj", "{04935AB2-1FEB-4C98-8BA0-4DCFABC6679A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Banicharnica.App", "01.Employees Mapping\Banicharnica.App.csproj", "{04935AB2-1FEB-4C98-8BA0-4DCFABC6679A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P01_EmployeesMapping", "P01_EmployeesMapping\P01_EmployeesMapping.csproj", "{F1E598F5-E3B6-4B1A-A468-B0D59E4CE23E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banicharnica.Data", "Banicharnica.Data\Banicharnica.Data.csproj", "{753E93A5-5564-4B6F-A59D-DFEC8918EDFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banicharnica.Models", "Banicharnica.Models\Banicharnica.Models.csproj", "{5246C606-C4F0-45A6-ABFD-4800AF74AFED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Banicharnica.Services", "Banicharnica.Services\Banicharnica.Services.csproj", "{ABC8898C-7486-4354-A4E1-3BC3856F509C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +21,18 @@ Global
 		{04935AB2-1FEB-4C98-8BA0-4DCFABC6679A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04935AB2-1FEB-4C98-8BA0-4DCFABC6679A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04935AB2-1FEB-4C98-8BA0-4DCFABC6679A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F1E598F5-E3B6-4B1A-A468-B0D59E4CE23E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F1E598F5-E3B6-4B1A-A468-B0D59E4CE23E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F1E598F5-E3B6-4B1A-A468-B0D59E4CE23E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F1E598F5-E3B6-4B1A-A468-B0D59E4CE23E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{753E93A5-5564-4B6F-A59D-DFEC8918EDFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{753E93A5-5564-4B6F-A59D-DFEC8918EDFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{753E93A5-5564-4B6F-A59D-DFEC8918EDFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{753E93A5-5564-4B6F-A59D-DFEC8918EDFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5246C606-C4F0-45A6-ABFD-4800AF74AFED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5246C606-C4F0-45A6-ABFD-4800AF74AFED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5246C606-C4F0-45A6-ABFD-4800AF74AFED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5246C606-C4F0-45A6-ABFD-4800AF74AFED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABC8898C-7486-4354-A4E1-3BC3856F509C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABC8898C-7486-4354-A4E1-3BC3856F509C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABC8898C-7486-4354-A4E1-3BC3856F509C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABC8898C-7486-4354-A4E1-3BC3856F509C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace EmployeesDb.Data.Models
+namespace Banicharnica.Models
 {
-    public class Employees
+    public class Employee
     {
         [Key]
         public int Id { get; set; }
@@ -15,7 +15,8 @@ namespace EmployeesDb.Data.Models
 
         [Required]
         public decimal Salary { get; set; }
-        public DateTime Birthday { get; set; }
+
+        public DateTime? Birthday { get; set; }
         public string Address { get; set; }
     }
 }
