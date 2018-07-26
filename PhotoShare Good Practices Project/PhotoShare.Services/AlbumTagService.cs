@@ -1,4 +1,5 @@
-﻿using PhotoShare.Data;
+﻿using System.Linq;
+using PhotoShare.Data;
 using PhotoShare.Models;
 using PhotoShare.Services.Contracts;
 
@@ -12,9 +13,17 @@ namespace PhotoShare.Services
         {
             this.context = context;
         }
+
         public AlbumTag AddTagTo(int albumId, int tagId)
         {
-            return null;
+            var albumTag = new AlbumTag
+            {
+                AlbumId = albumId,
+                TagId = tagId
+            };
+            this.context.AlbumTags.Add(albumTag);
+            this.context.SaveChanges();
+            return albumTag;
         }
     }
 }

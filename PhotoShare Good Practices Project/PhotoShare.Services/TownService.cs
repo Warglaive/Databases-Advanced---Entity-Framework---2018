@@ -16,6 +16,7 @@ namespace PhotoShare.Services
         {
             this.context = context;
         }
+
         public TModel ById<TModel>(int id)
             => By<TModel>(i => i.Id == id).SingleOrDefault();
 
@@ -39,6 +40,7 @@ namespace PhotoShare.Services
             this.context.SaveChanges();
             return town;
         }
+
         private IEnumerable<TModel> By<TModel>(Func<Town, bool> predicate) => this.context.Towns.Where(predicate)
             .AsQueryable().ProjectTo<TModel>();
     }

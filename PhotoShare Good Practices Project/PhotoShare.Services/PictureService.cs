@@ -1,14 +1,13 @@
-﻿namespace PhotoShare.Services
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper.QueryableExtensions;
+using PhotoShare.Data;
+using PhotoShare.Models;
+using PhotoShare.Services.Contracts;
+
+namespace PhotoShare.Services
 {
-    using System;
-    using System.Linq;
-    using System.Collections.Generic;
-    using AutoMapper.QueryableExtensions;
-
-    using Data;
-    using Models;
-    using Contracts;
-
     public class PictureService : IPictureService
     {
         private readonly PhotoShareContext context;

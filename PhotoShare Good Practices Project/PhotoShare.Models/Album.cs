@@ -1,8 +1,7 @@
 ﻿namespace PhotoShare.Models
 {
     using System.Collections.Generic;
-
-    using Models.Enums;
+    using Enums;
 
     public class Album
     {

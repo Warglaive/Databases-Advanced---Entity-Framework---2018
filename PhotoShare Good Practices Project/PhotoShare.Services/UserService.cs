@@ -75,17 +75,20 @@ namespace PhotoShare.Services
 
         public void ChangePassword(int userId, string password)
         {
-            throw new System.NotImplementedException();
+            this.context.Users.Find(userId).Password = password;
+            this.context.SaveChanges();
         }
 
-        public void SetBornTown(int userId, int townIde)
+        public void SetBornTown(int userId, int townId)
         {
-            throw new System.NotImplementedException();
+            this.ById<User>(userId).BornTownId = townId;
+            this.context.SaveChanges();
         }
 
         public void SetCurrentTown(int userId, int townId)
         {
-            throw new System.NotImplementedException();
+            this.ById<User>(userId).CurrentTown.Id = townId;
+            this.context.SaveChanges();
         }
 
         private IEnumerable<TModel> By<TModel>(Func<User, bool> predicate)
