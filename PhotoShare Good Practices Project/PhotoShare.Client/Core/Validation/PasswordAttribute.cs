@@ -41,7 +41,7 @@
                 return false;
             }
 
-            if (!password.Any(c => SpecialSymbols.Contains(c)))
+            if (password.Any(c => SpecialSymbols.Contains(c)))
             {
                 return false;
             }
