@@ -1,4 +1,8 @@
-﻿namespace PhotoShare.Client.Core.Commands
+﻿using System.IO;
+using PhotoShare.Client.Core.Dtos;
+using PhotoShare.Services.Contracts;
+
+namespace PhotoShare.Client.Core.Commands
 {
     using System;
     using System.Collections.Generic;
@@ -8,15 +12,44 @@
 
     public class RegisterUserCommand : ICommand
     {
-        public RegisterUserCommand()
+        private readonly IUserService userService;
+        public RegisterUserCommand(IUserService userService)
         {
-           
+            this.userService = userService;
         }
 
         // RegisterUser <username> <password> <repeat-password> <email>
         public string Execute(string[] data)
         {
-            throw new NotImplementedException();
+            var userName = data[0];
+            var password = data[1];
+            var repeatPassword = data[2];
+            var email = data[3];
+
+            var registerUserDto = new RegisterUserDto
+            {
+                Username = userName,
+                Password = password,
+                Email = email
+            };
+            if (!IsValid(registerUserDto))
+            {
+                throw new ArgumentException("invalid data");
+            }
+
+            var userExists = this.userService.Exists(userName);
+
+            if (userExists)
+            {
+                throw new InvalidOperationException($"Username {userName} is already taken!");
+            }
+
+            if (password != repeatPassword)
+            {
+                throw new ArgumentException("Passwords do not match!");
+            }
+            this.userService.Register(userName, password, email);
+            return $"User {userName} was registered successfully!";
         }
 
         private bool IsValid(object obj)
