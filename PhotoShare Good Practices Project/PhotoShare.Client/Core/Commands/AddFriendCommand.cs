@@ -52,7 +52,7 @@ namespace PhotoShare.Client.Core.Commands
                 throw new InvalidOperationException("Request is already send!");
             }
             this.userService.AddFriend(user.Id, friend.Id);
-            return $"Friend {friend} added to {user}";
+            return $"Friend {friend.Username} added to {user.Username}";
         }
     }
 }
