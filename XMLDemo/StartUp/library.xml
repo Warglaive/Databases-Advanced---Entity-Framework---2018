@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<library xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" id="123123120">
+  <LibraryName>biblioteka deba</LibraryName>
+  <books>
+    <book>
+      <title>zelen</title>
+      <author>asen</author>
+      <isbn>123</isbn>
+    </book>
+    <book>
+      <title>vtoraKniga</title>
+      <author>slaveto</author>
+      <isbn>321</isbn>
+    </book>
+  </books>
+</library>
