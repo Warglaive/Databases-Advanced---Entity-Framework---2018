@@ -12,7 +12,11 @@ namespace Models
         [Required]
         public int Car_Id { get; set; }
 
+        public Cars Cars { get; set; }
+
         [Required]
         public int Customer_Id { get; set; }
+
+        public Customers Customers { get; set; }
     }
 }
