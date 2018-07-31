@@ -9,8 +9,8 @@ namespace Data.ModelsConfig
         public void Configure(EntityTypeBuilder<Sales> builder)
         {
             builder.HasOne(x => x.Cars);
-            builder.HasOne(x=>x.Customers)
-                .WithMany(c=>c.Cars.Count)
+            builder.HasOne(x => x.Customers)
+                .WithMany(c => c.Cars.Count)
         }
     }
 }
