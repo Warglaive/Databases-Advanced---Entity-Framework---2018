@@ -8,6 +8,7 @@ namespace ProductShop.Data.ModelsConfig
     {
         public void Configure(EntityTypeBuilder<Products> builder)
         {
+            builder.HasMany(x => x.CategoryProducts);
         }
     }
 }
