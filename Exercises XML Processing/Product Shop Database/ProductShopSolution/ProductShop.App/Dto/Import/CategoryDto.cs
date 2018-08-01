@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Xml.Serialization;
 
-namespace ProductShop.App.Dto
+namespace ProductShop.App.Dto.Import
 {
     [XmlType("category")]
     public class CategoryDto

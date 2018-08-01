@@ -2,7 +2,7 @@
 
 namespace ProductShop.Data.Migrations
 {
-    public partial class xaxa : Migration
+    public partial class axasasdsda : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

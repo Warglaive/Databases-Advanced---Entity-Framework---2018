@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ProductShop.App.Dto;
+using ProductShop.App.Dto.Import;
 using ProductShop.Models;
 
 namespace ProductShop.App
