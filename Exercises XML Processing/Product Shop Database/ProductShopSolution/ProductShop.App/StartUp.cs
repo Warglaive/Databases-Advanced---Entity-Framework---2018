@@ -19,11 +19,40 @@ namespace ProductShop.App
     {
         public static void Main()
         {
-            ReadProductsXml();
-            ReadCategoriesXml();
-            ProductsInRange();
-            SoldProducts();
-            CategoriesByProductCount();
+            //ReadProductsXml();
+            //ReadCategoriesXml();
+            //ProductsInRange();
+            //SoldProducts();
+            //CategoriesByProductCount();
+            var context = new ProductShopDbContext();
+
+            var users = new LastTaskExportUsersDto
+            {
+                Count = context.Users.Count(),
+                Users = context.Users
+                    .Where(x => x.ProductsSold.Any())
+                    .Select(x => new LastTaskUserDto
+                    {
+                        FirstName = x.FirstName,
+                        LastName = x.LastName,
+                        Age = x.Age.ToString(),
+                        SoldProducts = new LastTaskSoldProduct
+                        {
+                            Count = x.ProductsSold.Count,
+                            Products = x.ProductsSold.Select(k => new LastTaskProduct
+                            {
+                                Name = k.Name,
+                                Price = k.Price
+                            }).ToArray()
+                        }
+                    }).ToArray()
+            };
+
+            var sb = new StringBuilder();
+            var xmlNamespaces = new XmlSerializerNamespaces(new[] { XmlQualifiedName.Empty });
+            var serializer = new XmlSerializer(typeof(LastTaskExportUsersDto), new XmlRootAttribute("users"));
+            serializer.Serialize(new StringWriter(sb), users, xmlNamespaces);
+            File.WriteAllText("ExportedXmls/users-and-products.xml", sb.ToString());
         }
 
         private static void ReadCategoriesXml()
@@ -191,7 +220,7 @@ namespace ProductShop.App
             File.WriteAllText("ExportedXmls/categories-by-products.xml", sb.ToString());
         }
 
-        public static bool IsValid(object obj)
+        private static bool IsValid(object obj)
         {
             var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(obj);
 
