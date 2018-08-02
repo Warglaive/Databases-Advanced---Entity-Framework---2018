@@ -114,7 +114,7 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("IsImported");
+                    b.Property<bool>("IsImporter");
 
                     b.Property<string>("Name");
 
