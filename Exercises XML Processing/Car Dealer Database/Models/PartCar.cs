@@ -2,14 +2,14 @@
 
 namespace Models
 {
-    public class PartCars
+    public class PartCar
     {
         [Required]
         public int Part_Id { get; set; }
-        public Parts Parts { get; set; }
+        public Part Part { get; set; }
 
         [Required]
         public int Car_Id { get; set; }
-        public Cars Cars { get; set; }
+        public Car Car { get; set; }
     }
 }

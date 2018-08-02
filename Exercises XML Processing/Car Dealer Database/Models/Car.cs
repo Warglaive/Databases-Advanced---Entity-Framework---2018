@@ -3,19 +3,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
-    public class Cars
+    public class Car
     {
-        public Cars()
+        public Car()
         {
-            this.Parts = new List<PartCars>();
+            this.Parts = new List<PartCar>();
         }
         [Key]
         public int Id { get; set; }
 
         public string Make { get; set; }
         public string Model { get; set; }
-        public double TravelledDistance { get; set; }
+        public double TravelledKm { get; set; }
 
-        public ICollection<PartCars> Parts { get; set; }
+        public ICollection<PartCar> Parts { get; set; }
     }
 }

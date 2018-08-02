@@ -4,13 +4,13 @@ using Models;
 
 namespace Data.ModelsConfig
 {
-    public class PartsConfig : IEntityTypeConfiguration<Parts>
+    public class PartConfig : IEntityTypeConfiguration<Part>
     {
-        public void Configure(EntityTypeBuilder<Parts> builder)
+        public void Configure(EntityTypeBuilder<Part> builder)
         {
             builder.HasMany(x => x.Cars)
-                .WithOne(x => x.Parts)
-                .HasForeignKey(x => x.Part_Id);
+                .WithOne(p => p.Part)
+                .HasForeignKey(p => p.Part_Id);
         }
     }
 }

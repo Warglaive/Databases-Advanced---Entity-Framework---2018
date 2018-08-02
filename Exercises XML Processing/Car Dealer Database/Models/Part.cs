@@ -3,22 +3,23 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
-    public class Parts
+    public class Part
     {
-        public Parts()
+        public Part()
         {
-            this.Cars = new List<PartCars>();
+            this.Cars = new List<PartCar>();
         }
         [Key]
         public int Id { get; set; }
+
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
 
         [Required]
         public int Supplier_id { get; set; }
-        public Suppliers Suppliers { get; set; }
+        public Supplier Supplier { get; set; }
 
-        public ICollection<PartCars> Cars { get; set; }
+        public ICollection<PartCar> Cars { get; set; }
     }
 }

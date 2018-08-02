@@ -4,12 +4,12 @@ using Models;
 
 namespace Data.ModelsConfig
 {
-    class SuppliersConfig : IEntityTypeConfiguration<Suppliers>
+    class SupplierConfig : IEntityTypeConfiguration<Supplier>
     {
-        public void Configure(EntityTypeBuilder<Suppliers> builder)
+        public void Configure(EntityTypeBuilder<Supplier> builder)
         {
-            builder.HasMany(x => x.Parts)
-                .WithOne(s => s.Suppliers)
+            builder.HasMany(p => p.Parts)
+                .WithOne(s => s.Supplier)
                 .HasForeignKey(s => s.Supplier_id);
         }
     }

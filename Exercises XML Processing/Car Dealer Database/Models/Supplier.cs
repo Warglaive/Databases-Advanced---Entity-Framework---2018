@@ -3,19 +3,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
-    public class Suppliers
+    public class Supplier
     {
-        public Suppliers()
+        public Supplier()
         {
-            this.Parts = new List<Parts>();
+            this.Parts = new List<Part>();
         }
         [Key]
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public bool IsImporter { get; set; }
+        public bool IsImported { get; set; }
 
-        public ICollection<Parts> Parts { get; set; }
+        public ICollection<Part> Parts { get; set; }
     }
 }

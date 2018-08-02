@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
-    public class Customers
+    public class Customer
     {
-        public Customers()
+        public Customer()
         {
-            this.Cars = new List<Cars>();
+            this.Cars = new List<Car>();
         }
         [Key]
         public int Id { get; set; }
@@ -19,6 +19,6 @@ namespace Models
 
         public bool IsYoungDriver { get; set; }
 
-        public ICollection<Cars> Cars { get; set; }
+        public ICollection<Car> Cars { get; set; }
     }
 }
