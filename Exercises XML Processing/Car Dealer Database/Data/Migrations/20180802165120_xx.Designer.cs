@@ -4,14 +4,16 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(CarDealerDbContext))]
-    partial class CarDealerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180802165120_xx")]
+    partial class xx
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,11 +67,11 @@ namespace Data.Migrations
 
                     b.Property<int>("Quantity");
 
-                    b.Property<int>("Supplier_Id");
+                    b.Property<int?>("Supplier_id");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Supplier_Id");
+                    b.HasIndex("Supplier_id");
 
                     b.ToTable("Parts");
                 });
@@ -127,8 +129,7 @@ namespace Data.Migrations
                 {
                     b.HasOne("Models.Supplier", "Supplier")
                         .WithMany("Parts")
-                        .HasForeignKey("Supplier_Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Supplier_id");
                 });
 
             modelBuilder.Entity("Models.PartCar", b =>

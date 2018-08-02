@@ -3,7 +3,7 @@
 namespace App.Dtos
 {
     [XmlType("supplier")]
-    public class SuppliersDto
+    public class SupplierDto
     {
         [XmlAttribute("name")]
         public string Name { get; set; }

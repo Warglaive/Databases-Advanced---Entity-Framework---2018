@@ -10,7 +10,7 @@ namespace Data.ModelsConfig
         {
             builder.HasMany(p => p.Parts)
                 .WithOne(s => s.Supplier)
-                .HasForeignKey(s => s.Supplier_id);
+                .HasForeignKey(s => s.Supplier_Id);
         }
     }
 }

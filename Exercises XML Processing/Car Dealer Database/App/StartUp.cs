@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using App.Dtos;
 using AutoMapper;
@@ -14,6 +15,57 @@ namespace App
     {
         public static void Main()
         {
+            ImportSuppliers();
+            //ImportParts();
+        }
+
+        private static void ImportParts()
+        {
+            var context = new CarDealerDbContext();
+            var mapperConfig = new MapperConfiguration(cfg => { cfg.AddProfile<CarDealerProfile>(); });
+            var mapper = mapperConfig.CreateMapper();
+            var xmlString = File.ReadAllText("ImportXmls/parts.xml");
+            var serializer = new XmlSerializer(typeof(PartDto[]),
+                new XmlRootAttribute("parts"));
+
+            var deserializeParts = (PartDto[])serializer.Deserialize(new StringReader(xmlString));
+
+
+            var parts = new List<Part>();
+
+            foreach (var deserializePart in deserializeParts)
+            {
+                if (!IsValid(deserializePart))
+                {
+                    continue;
+                }
+
+                //take random supplier
+                var suppliers = context.Suppliers.ToList();
+                var supplierId = new Random().Next(suppliers.Count - 1);
+
+                var supplier = suppliers.FirstOrDefault(id => id.Id == supplierId);
+
+                suppliers.Remove(supplier);
+
+                var partDto = new PartDto()
+                {
+                    Name = deserializePart.Name,
+                    Price = deserializePart.Price,
+                    Quantity = deserializePart.Quantity,
+                    SupplierId = supplierId
+                };
+                var part = mapper.Map<Part>(partDto);
+
+                // part.Supplier_id = supplierId;
+                parts.Add(part);
+            }
+            context.AddRange(parts);
+            context.SaveChanges();
+        }
+
+        private static void ImportSuppliers()
+        {
             var context = new CarDealerDbContext();
             var mapperConfig = new MapperConfiguration(cfg =>
             {
@@ -22,10 +74,10 @@ namespace App
             var mapper = mapperConfig.CreateMapper();
 
             var xmlString = File.ReadAllText("ImportXmls/suppliers.xml");
-            var serializer = new XmlSerializer(typeof(SuppliersDto[]),
+            var serializer = new XmlSerializer(typeof(SupplierDto[]),
                 new XmlRootAttribute("suppliers"));
 
-            var deserializeSuppliers = (SuppliersDto[])serializer.Deserialize(
+            var deserializeSuppliers = (SupplierDto[])serializer.Deserialize(
                 new StringReader(xmlString));
 
             var suppliers = new List<Supplier>();

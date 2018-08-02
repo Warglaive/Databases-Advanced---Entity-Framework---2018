@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class update : Migration
+    public partial class xx : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -88,7 +88,7 @@ namespace Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Supplier_id = table.Column<int>(nullable: false)
+                    Supplier_id = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -98,7 +98,7 @@ namespace Data.Migrations
                         column: x => x.Supplier_id,
                         principalTable: "Suppliers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

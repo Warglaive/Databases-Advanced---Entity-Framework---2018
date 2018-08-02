@@ -8,7 +8,8 @@ namespace App
     {
         public CarDealerProfile()
         {
-            CreateMap<SuppliersDto, Supplier>();
+            CreateMap<SupplierDto, Supplier>();
+            CreateMap<PartDto, Part>();
         }
     }
 }

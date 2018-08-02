@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(CarDealerDbContext))]
-    [Migration("20180802153940_update")]
+    [Migration("20180802165407_update")]
     partial class update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,11 +67,11 @@ namespace Data.Migrations
 
                     b.Property<int>("Quantity");
 
-                    b.Property<int>("Supplier_id");
+                    b.Property<int>("Supplier_Id");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Supplier_id");
+                    b.HasIndex("Supplier_Id");
 
                     b.ToTable("Parts");
                 });
@@ -129,7 +129,7 @@ namespace Data.Migrations
                 {
                     b.HasOne("Models.Supplier", "Supplier")
                         .WithMany("Parts")
-                        .HasForeignKey("Supplier_id")
+                        .HasForeignKey("Supplier_Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
