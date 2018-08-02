@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(CarDealerDbContext))]
-    [Migration("20180802165407_update")]
+    [Migration("20180802171358_update")]
     partial class update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -67,11 +67,11 @@ namespace Data.Migrations
 
                     b.Property<int>("Quantity");
 
-                    b.Property<int>("Supplier_Id");
+                    b.Property<int>("SupplierId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Supplier_Id");
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Parts");
                 });
@@ -95,17 +95,17 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CarId");
+                    b.Property<int>("Car_Id");
 
-                    b.Property<int>("CustomerId");
+                    b.Property<int>("Customer_Id");
 
                     b.Property<int?>("DiscountPercentage");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId");
+                    b.HasIndex("Car_Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("Customer_Id");
 
                     b.ToTable("Sales");
                 });
@@ -129,7 +129,7 @@ namespace Data.Migrations
                 {
                     b.HasOne("Models.Supplier", "Supplier")
                         .WithMany("Parts")
-                        .HasForeignKey("Supplier_Id")
+                        .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -149,13 +149,13 @@ namespace Data.Migrations
             modelBuilder.Entity("Models.Sale", b =>
                 {
                     b.HasOne("Models.Car", "Car")
-                        .WithMany()
-                        .HasForeignKey("CarId")
+                        .WithMany("Sales")
+                        .HasForeignKey("Car_Id")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Models.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
+                        .WithMany("Sales")
+                        .HasForeignKey("Customer_Id")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

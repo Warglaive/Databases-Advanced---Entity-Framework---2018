@@ -15,8 +15,8 @@ namespace App
     {
         public static void Main()
         {
-            ImportSuppliers();
-            //ImportParts();
+            //  ImportSuppliers();
+            ImportParts();
         }
 
         private static void ImportParts()

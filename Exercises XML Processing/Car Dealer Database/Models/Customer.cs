@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Models
@@ -7,7 +8,7 @@ namespace Models
     {
         public Customer()
         {
-            // this.Cars = new List<Car>();
+            this.Sales = new List<Sale>();
         }
         [Key]
         public int Id { get; set; }
@@ -18,6 +19,6 @@ namespace Models
 
         public bool IsYoungDriver { get; set; }
 
-        //    public ICollection<Car> Cars { get; set; }
+        public ICollection<Sale> Sales { get; set; }
     }
 }

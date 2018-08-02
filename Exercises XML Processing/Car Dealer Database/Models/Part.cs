@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
@@ -17,7 +16,6 @@ namespace Models
         public decimal Price { get; set; }
         public int Quantity { get; set; }
 
-        [ForeignKey("Supplier")]
         public int Supplier_Id { get; set; }
 
         public Supplier Supplier { get; set; }

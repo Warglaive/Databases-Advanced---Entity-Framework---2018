@@ -13,6 +13,14 @@ namespace Data.ModelsConfig
                 x.Car_Id,
                 x.Part_Id
             });
+
+            builder.HasOne(pc => pc.Part)
+                .WithMany(p => p.Cars)
+                .HasForeignKey(c => c.Part_Id);
+
+            builder.HasOne(pc => pc.Car)
+                .WithMany(p => p.Parts)
+                .HasForeignKey(c => c.Car_Id);
         }
     }
 }

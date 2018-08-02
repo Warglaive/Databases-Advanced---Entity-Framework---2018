@@ -8,9 +8,13 @@ namespace Data.ModelsConfig
     {
         public void Configure(EntityTypeBuilder<Sale> builder)
         {
-            builder.HasOne(c => c.Car);
+            builder.HasOne(x => x.Car)
+                .WithMany(s => s.Sales)
+                .HasForeignKey(s => s.Car_Id);
 
-            builder.HasOne(x => x.Customer);
+            builder.HasOne(c => c.Customer)
+                .WithMany(s => s.Sales)
+                .HasForeignKey(c => c.Customer_Id);
         }
     }
 }

@@ -8,9 +8,9 @@ namespace Data.ModelsConfig
     {
         public void Configure(EntityTypeBuilder<Part> builder)
         {
-            builder.HasMany(x => x.Cars)
-                .WithOne(p => p.Part)
-                .HasForeignKey(p => p.Part_Id);
+            //builder.HasMany(x => x.Cars)
+            //    .WithOne(p => p.Part)
+            //    .HasForeignKey(p => p.Part_Id);
         }
     }
 }

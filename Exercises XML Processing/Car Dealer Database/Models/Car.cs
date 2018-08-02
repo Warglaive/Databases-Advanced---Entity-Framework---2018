@@ -8,6 +8,7 @@ namespace Models
         public Car()
         {
             this.Parts = new List<PartCar>();
+            this.Sales = new List<Sale>();
         }
         [Key]
         public int Id { get; set; }
@@ -17,5 +18,6 @@ namespace Models
         public double TravelledKm { get; set; }
 
         public ICollection<PartCar> Parts { get; set; }
+        public ICollection<Sale> Sales { get; set; }
     }
 }

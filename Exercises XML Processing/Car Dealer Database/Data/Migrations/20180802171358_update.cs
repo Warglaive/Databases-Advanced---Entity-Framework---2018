@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class xx : Migration
+    public partial class update : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -59,21 +59,21 @@ namespace Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DiscountPercentage = table.Column<int>(nullable: true),
-                    CarId = table.Column<int>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: false)
+                    Car_Id = table.Column<int>(nullable: false),
+                    Customer_Id = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sales", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sales_Cars_CarId",
-                        column: x => x.CarId,
+                        name: "FK_Sales_Cars_Car_Id",
+                        column: x => x.Car_Id,
                         principalTable: "Cars",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Sales_Customers_CustomerId",
-                        column: x => x.CustomerId,
+                        name: "FK_Sales_Customers_Customer_Id",
+                        column: x => x.Customer_Id,
                         principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -88,17 +88,17 @@ namespace Data.Migrations
                     Name = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Supplier_id = table.Column<int>(nullable: true)
+                    SupplierId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Parts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Parts_Suppliers_Supplier_id",
-                        column: x => x.Supplier_id,
+                        name: "FK_Parts_Suppliers_SupplierId",
+                        column: x => x.SupplierId,
                         principalTable: "Suppliers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,9 +126,9 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Parts_Supplier_id",
+                name: "IX_Parts_SupplierId",
                 table: "Parts",
-                column: "Supplier_id");
+                column: "SupplierId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PartsCars_Part_Id",
@@ -136,14 +136,14 @@ namespace Data.Migrations
                 column: "Part_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sales_CarId",
+                name: "IX_Sales_Car_Id",
                 table: "Sales",
-                column: "CarId");
+                column: "Car_Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sales_CustomerId",
+                name: "IX_Sales_Customer_Id",
                 table: "Sales",
-                column: "CustomerId");
+                column: "Customer_Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
