@@ -15,8 +15,40 @@ namespace App
     {
         public static void Main()
         {
-            //  ImportSuppliers();
-            ImportParts();
+            //ImportSuppliers();
+            //ImportParts();
+            ImportCars();
+
+        }
+
+        private static void ImportCars()
+        {
+            var context = new CarDealerDbContext();
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<CarDealerProfile>();
+            });
+            var mapper = mapperConfig.CreateMapper();
+            var xmlString = File.ReadAllText("ImportXmls/cars.xml");
+            var serializer = new XmlSerializer(typeof(CarDto[]),
+                new XmlRootAttribute("cars"));
+
+            var deserializer = (CarDto[])serializer.Deserialize(new StringReader(xmlString));
+
+            var cars = new List<Car>();
+            foreach (var carDto in deserializer)
+            {
+                if (!IsValid(carDto))
+                {
+                    continue;
+                }
+
+                var car = mapper.Map<Car>(carDto);
+                //to do add random parts to car
+                cars.Add(car);
+            }
+            context.Cars.AddRange(cars);
+            context.SaveChanges();
         }
 
         private static void ImportParts()
@@ -39,7 +71,6 @@ namespace App
                 {
                     continue;
                 }
-
                 //take random supplier
                 var suppliers = context.Suppliers.ToList();
                 var supplierId = new Random().Next(suppliers.Count - 1);
@@ -56,8 +87,6 @@ namespace App
                     SupplierId = supplierId
                 };
                 var part = mapper.Map<Part>(partDto);
-
-                // part.Supplier_id = supplierId;
                 parts.Add(part);
             }
             context.AddRange(parts);

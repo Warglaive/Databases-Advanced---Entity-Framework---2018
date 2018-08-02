@@ -10,6 +10,7 @@ namespace App
         {
             CreateMap<SupplierDto, Supplier>();
             CreateMap<PartDto, Part>();
+            CreateMap<CarDto, Car>();
         }
     }
 }
