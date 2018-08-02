@@ -35,7 +35,7 @@ namespace App
 
             var deserializer = (CarDto[])serializer.Deserialize(new StringReader(xmlString));
 
-            var cars = new List<Car>();
+            var cars = new List<PartCar>();
             foreach (var carDto in deserializer)
             {
                 if (!IsValid(carDto))
@@ -43,11 +43,17 @@ namespace App
                     continue;
                 }
 
-                var car = mapper.Map<Car>(carDto);
+                var car = mapper.Map<PartCar>(carDto);
+                var partsCount = new Random().Next(10, 20);
+                var parts = context.Parts.Take(partsCount).ToArray();
                 //to do add random parts to car
+                foreach (var part in parts)
+                {
+                    car.Part = part;
+                }
                 cars.Add(car);
             }
-            context.Cars.AddRange(cars);
+            context.PartsCars.AddRange(cars);
             context.SaveChanges();
         }
 
