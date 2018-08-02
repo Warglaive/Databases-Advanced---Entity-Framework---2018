@@ -8,7 +8,6 @@ namespace Data.ModelsConfig
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            builder.HasMany(c => c.Cars);
         }
     }
 }
