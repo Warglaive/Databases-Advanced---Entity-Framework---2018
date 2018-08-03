@@ -35,7 +35,7 @@ namespace App
 
             var deserializer = (CarDto[])serializer.Deserialize(new StringReader(xmlString));
 
-            var cars = new List<PartCar>();
+            var cars = new List<Car>();
             foreach (var carDto in deserializer)
             {
                 if (!IsValid(carDto))
@@ -43,18 +43,63 @@ namespace App
                     continue;
                 }
 
-                var car = mapper.Map<PartCar>(carDto);
+                // var car = mapper.Map<PartCar>(carDto);
+                var car = new Car()
+                {
+                    Make = carDto.Make,
+                    Model = carDto.Model,
+                    TravelledKm = carDto.TravelledKm
+                };
+
                 var partsCount = new Random().Next(10, 20);
                 var parts = context.Parts.Take(partsCount).ToArray();
+                cars = AddPartsToCars(parts, cars).ToList();
+
                 //to do add random parts to car
                 foreach (var part in parts)
                 {
-                    car.Part = part;
+                    car.Parts.Add(part);
                 }
-                cars.Add(car);
+                // cars.Add(car);
             }
-            context.PartsCars.AddRange(cars);
+            context.Cars.AddRange(cars);
             context.SaveChanges();
+        }
+
+        private static ICollection<Car> AddPartsToCars(ICollection<Part> parts, ICollection<Car> cars)
+        {
+            Random random = new Random();
+            foreach (Car car in cars)
+            {
+                car.PartCars = GeneratePartCars(parts, random.Next(10, 20));
+            }
+
+            return cars;
+        }
+        private static ICollection<PartCar> GeneratePartCars(ICollection<Part> parts, int count)
+        {
+            var rangeOfParts = new List<Part>();
+            Random random = new Random();
+            while (rangeOfParts.Count < count)
+            {
+                rangeOfParts.Add(parts.ElementAt(random.Next(0, parts.Count - 1)));
+
+                if (rangeOfParts.Count == count)
+                {
+                    rangeOfParts = rangeOfParts.Distinct().ToList();
+                }
+            }
+
+            var partCars = new List<PartCar>();
+            foreach (var part in rangeOfParts.Distinct())
+            {
+                partCars.Add(new PartCar
+                {
+                    Part = part
+                });
+            }
+
+            return partCars;
         }
 
         private static void ImportParts()
