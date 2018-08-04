@@ -16,6 +16,50 @@ namespace ProductShop.App
         public static void Main()
         {
             //ImportUsers();
+            //ImportProducts();
+            //ImportCategories();
+
+            var context = new ProductShopContext();
+
+            var categoryProducts = new List<CategoryProduct>();
+
+            for (int productId = 1; productId <= 200; productId++)
+            {
+                var categoryId = new Random().Next(1, 12);
+
+                var categoryProduct = new CategoryProduct
+                {
+                    CategoryId = categoryId,
+                    ProductId = productId
+                };
+                
+                categoryProducts.Add(categoryProduct);
+            }
+
+            context.CategoryProducts.AddRange(categoryProducts);
+            context.SaveChanges();
+
+        }
+
+        private static void ImportCategories()
+        {
+            var categoriesJsonString = File.ReadAllText("Json/categories.json");
+            var deserializedCategories = JsonConvert.DeserializeObject<Category[]>(categoriesJsonString);
+            var categories = new List<Category>();
+            foreach (var deserializedCategory in deserializedCategories)
+            {
+                if (IsValid(deserializedCategory))
+                {
+                    categories.Add(deserializedCategory);
+                }
+            }
+            var context = new ProductShopContext();
+            context.Categories.AddRange(categories);
+            context.SaveChanges();
+        }
+
+        private static void ImportProducts()
+        {
             var jsonString = File.ReadAllText("Json/products.json");
 
             var deserializedProducts = JsonConvert.DeserializeObject<Product[]>(jsonString);
@@ -28,7 +72,6 @@ namespace ProductShop.App
                 {
                     continue;
                 }
-
                 var sellerId = new Random().Next(1, 35);
                 var buyerId = new Random().Next(35, 57);
 
@@ -39,6 +82,7 @@ namespace ProductShop.App
                 {
                     product.BuyerId = null;
                 }
+                //generate categories
                 products.Add(product);
             }
             context.Products.AddRange(products);
