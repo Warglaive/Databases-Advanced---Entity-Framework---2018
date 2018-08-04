@@ -1,7 +1,6 @@
 ﻿namespace ProductShop.Data
 {
     using Microsoft.EntityFrameworkCore;
-
     using Models;
 
     public class ProductShopContext : DbContext
@@ -10,7 +9,7 @@
         {
         }
 
-        public ProductShopContext(DbContextOptions options) 
+        public ProductShopContext(DbContextOptions options)
             : base(options)
         {
         }
@@ -32,7 +31,7 @@
         {
             modelBuilder.Entity<CategoryProduct>(entity =>
             {
-                entity.HasKey(x => new { x.CategoryId, x.ProductId});
+                entity.HasKey(x => new { x.CategoryId, x.ProductId });
             });
 
             modelBuilder.Entity<User>(entity =>

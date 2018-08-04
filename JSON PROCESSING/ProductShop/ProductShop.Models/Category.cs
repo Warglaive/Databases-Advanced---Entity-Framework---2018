@@ -1,4 +1,6 @@
-﻿namespace ProductShop.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ProductShop.Models
 {
     using System.Collections.Generic;
 
@@ -11,6 +13,8 @@
 
         public int Id { get; set; }
 
+        [Required]
+        [MinLength(3)]
         public string Name { get; set; }
 
         public ICollection<CategoryProduct> CategoryProducts { get; set; }

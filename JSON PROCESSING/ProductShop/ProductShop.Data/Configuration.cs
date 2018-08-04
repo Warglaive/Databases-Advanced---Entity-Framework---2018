@@ -2,6 +2,6 @@
 {
     public class Configuration
     {
-        public static string ConnectionString => @"Server=.; Database=ProductShop;Integrated Security=True";
+        public static string ConnectionString => @"Server=WARGLAIVE\SQLEXPRESS; Database=ProductShopJsonDb;Integrated Security=True";
     }
 }
