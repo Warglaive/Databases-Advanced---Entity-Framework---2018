@@ -32,7 +32,7 @@ namespace ProductShop.App
                     CategoryId = categoryId,
                     ProductId = productId
                 };
-                
+
                 categoryProducts.Add(categoryProduct);
             }
 
