@@ -15,7 +15,7 @@ namespace Instagraph.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
-        public DbSet<UserFollower> UserFollowers { get; set; }
+        public DbSet<UserFollower> UsersFollowers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

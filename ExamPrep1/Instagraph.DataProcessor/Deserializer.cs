@@ -32,8 +32,9 @@ namespace Instagraph.DataProcessor
                 }
             }
 
-            context.Pictures.AddRange(pictures);
             Console.WriteLine(sb.ToString().Trim());
+            context.Pictures.AddRange(pictures);
+            context.SaveChanges();
             return sb.ToString().Trim();
         }
 
@@ -60,7 +61,8 @@ namespace Instagraph.DataProcessor
         public static bool IsValid(Picture currentPicture, Picture[] pictures)
         {
             var counter = 0;
-            if (currentPicture.Path != "" || currentPicture.Path.Length > 0)
+            if (!string.IsNullOrEmpty(currentPicture.Path)
+                && currentPicture.Size > 0)
             {
                 foreach (var picture in pictures)
                 {
@@ -74,9 +76,11 @@ namespace Instagraph.DataProcessor
                 {
                     return false;
                 }
+
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
 }
