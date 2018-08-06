@@ -2,13 +2,16 @@
 using System.Text;
 using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Xml.Linq;
-using Newtonsoft.Json;
 using AutoMapper;
+using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
 using Instagraph.Data;
+using Instagraph.DataProcessor.Dtos.Import;
 using Instagraph.Models;
+using ValidationContext = AutoMapper.ValidationContext;
 
 namespace Instagraph.DataProcessor
 {
@@ -21,7 +24,7 @@ namespace Instagraph.DataProcessor
             var sb = new StringBuilder();
             foreach (var picture in deserializePictures)
             {
-                if (IsValid(picture, deserializePictures))
+                if (IsValid(picture))
                 {
                     pictures.Add(picture);
                     sb.AppendLine($"Successfully imported Picture {picture.Path}.");
@@ -32,7 +35,6 @@ namespace Instagraph.DataProcessor
                 }
             }
 
-            Console.WriteLine(sb.ToString().Trim());
             context.Pictures.AddRange(pictures);
             context.SaveChanges();
             return sb.ToString().Trim();
@@ -40,7 +42,32 @@ namespace Instagraph.DataProcessor
 
         public static string ImportUsers(InstagraphContext context, string jsonString)
         {
-            throw new NotImplementedException();
+            var deserializeUsers = JsonConvert.DeserializeObject<UserDto[]>(jsonString);
+            var users = new List<User>();
+            var sb = new StringBuilder();
+            foreach (var userDto in deserializeUsers)
+            {
+                // var mapper = Mapper.Configuration.CreateMapper();
+
+                var user = Mapper.Map<User>(userDto);
+
+                var profilePicture = context.Pictures.FirstOrDefault(x => x.Path == userDto.ProfilePicture);
+                user.ProfilePicture = profilePicture;
+
+                if (IsValid(user))
+                {
+                    users.Add(user);
+                    sb.AppendLine($"Successfully imported User {userDto.Username}.");
+                }
+                else
+                {
+                    sb.AppendLine("Error: Invalid data.");
+                }
+            }
+
+            context.Users.AddRange(users);
+            context.SaveChanges();
+            return sb.ToString().Trim();
         }
 
         public static string ImportFollowers(InstagraphContext context, string jsonString)
@@ -58,29 +85,11 @@ namespace Instagraph.DataProcessor
             throw new NotImplementedException();
         }
         //if not working in judge go for IsValid with validator
-        public static bool IsValid(Picture currentPicture, Picture[] pictures)
+        public static bool IsValid(object deserializedUser)
         {
-            var counter = 0;
-            if (!string.IsNullOrEmpty(currentPicture.Path)
-                && currentPicture.Size > 0)
-            {
-                foreach (var picture in pictures)
-                {
-                    if (picture.Path == currentPicture.Path)
-                    {
-                        counter++;
-                    }
-                }
-
-                if (counter > 1)
-                {
-                    return false;
-                }
-
-                return true;
-            }
-
-            return false;
+            var validationContext = new System.ComponentModel.DataAnnotations.ValidationContext(deserializedUser);
+            var result = new List<ValidationResult>();
+            return Validator.TryValidateObject(deserializedUser, validationContext, result, true);
         }
     }
 }

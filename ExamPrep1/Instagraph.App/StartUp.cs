@@ -11,7 +11,7 @@ namespace Instagraph.App
 {
     public class StartUp
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             Mapper.Initialize(options => options.AddProfile<InstagraphProfile>());
 
@@ -70,7 +70,7 @@ namespace Instagraph.App
                 File.WriteAllText("files/output/CommentsOnPosts.xml", commentsOutput);
             }
         }
-        
+
         private static string ResetDatabase()
         {
             using (var context = new InstagraphContext())
