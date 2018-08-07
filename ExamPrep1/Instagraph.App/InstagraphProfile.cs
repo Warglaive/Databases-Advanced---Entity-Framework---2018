@@ -8,6 +8,8 @@ namespace Instagraph.App
     {
         public InstagraphProfile()
         {
+            CreateMap<PictureDto, Picture>();
+
             CreateMap<UserDto, User>()
                 .ForMember(
                     des => des.ProfilePicture,

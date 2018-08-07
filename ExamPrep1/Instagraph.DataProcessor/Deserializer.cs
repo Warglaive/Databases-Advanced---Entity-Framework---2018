@@ -19,22 +19,30 @@ namespace Instagraph.DataProcessor
     {
         public static string ImportPictures(InstagraphContext context, string jsonString)
         {
-            var deserializePictures = JsonConvert.DeserializeObject<Picture[]>(jsonString);
+            var deserializePictures = JsonConvert.DeserializeObject<PictureDto[]>(jsonString);
             var pictures = new List<Picture>();
             var sb = new StringBuilder();
-            foreach (var picture in deserializePictures)
+            foreach (var pictureDto in deserializePictures)
             {
-                if (IsValid(picture))
+                if (IsValid(pictureDto))
                 {
-                    pictures.Add(picture);
-                    sb.AppendLine($"Successfully imported Picture {picture.Path}.");
+                    var picture = Mapper.Map<Picture>(pictureDto);
+                    if (!string.IsNullOrEmpty(picture.Path) && picture.Size > 0)
+                    {
+                        pictures.Add(picture);
+                        sb.AppendLine($"Successfully imported Picture {picture.Path}.");
+                    }
+                    else
+                    {
+                        sb.AppendLine("Error: Invalid data.");
+                    }
                 }
                 else
                 {
                     sb.AppendLine("Error: Invalid data.");
                 }
             }
-
+            
             context.Pictures.AddRange(pictures);
             context.SaveChanges();
             return sb.ToString().Trim();
@@ -116,7 +124,7 @@ namespace Instagraph.DataProcessor
             }
 
             context.UsersFollowers.AddRange(userFollowers);
-           // Console.WriteLine(sb.ToString().Trim());
+            // Console.WriteLine(sb.ToString().Trim());
             context.SaveChanges();
             return sb.ToString().Trim();
         }
