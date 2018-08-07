@@ -78,13 +78,14 @@ namespace Instagraph.DataProcessor
 
             foreach (var userFollowerDto in usersFollowersDto)
             {
-                var user = context.Users.FirstOrDefault(n => n.Username == userFollowerDto.User);
-
-                var follower = context.Users.FirstOrDefault(x => x.Username == userFollowerDto.Follower);
-
-                if (user != null && follower != null)
+                if (IsValid(userFollowerDto))
                 {
-                    if (IsValid(user) && IsValid(follower))
+                    var user = context.Users.AsNoTracking().FirstOrDefault(n => n.Username == userFollowerDto.User);
+
+                    var follower = context.Users.AsNoTracking()
+                        .FirstOrDefault(x => x.Username == userFollowerDto.Follower);
+
+                    if (user != null && follower != null)
                     {
                         var userFollower = new UserFollower
                         {
@@ -95,20 +96,22 @@ namespace Instagraph.DataProcessor
                         };
 
                         userFollowers.Add(userFollower);
+                        sb.AppendLine($"Successfully imported Follower {follower.Username} to User {user.Username}.");
+
+                    }
+                    else
+                    {
+                        sb.AppendLine("Error: Invalid data.");
                     }
                 }
-
-                //if (IsValid(follower))
-                //{
-                //    //followers.Add(follower);
-                //    //sb.AppendLine($"Successfully imported Follower {follower.Follower.User} to User {user.User}.");
-                //}
-                //else
-                //{
-                //    sb.AppendLine("Error: Invalid data.");
-                //}
+                else
+                {
+                    sb.AppendLine("Error: Invalid data.");
+                }
             }
+
             context.UsersFollowers.AddRange(userFollowers);
+            Console.WriteLine(sb.ToString().Trim());
             context.SaveChanges();
             return sb.ToString().Trim();
         }

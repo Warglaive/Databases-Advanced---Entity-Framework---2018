@@ -22,7 +22,7 @@ namespace Instagraph.Data.Config
                 .WithOne(u => u.User)
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
-            
+
             builder.HasMany(f => f.UsersFollowing)
                 .WithOne(u => u.User)
                 .HasForeignKey(x => x.UserId)
