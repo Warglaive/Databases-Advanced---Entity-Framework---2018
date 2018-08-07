@@ -42,7 +42,7 @@ namespace Instagraph.DataProcessor
                     sb.AppendLine("Error: Invalid data.");
                 }
             }
-            
+
             context.Pictures.AddRange(pictures);
             context.SaveChanges();
             return sb.ToString().Trim();
@@ -89,14 +89,15 @@ namespace Instagraph.DataProcessor
                 if (IsValid(userFollowerDto))
                 {
                     var user = context.Users
-                        .SingleOrDefault(n => n.Username == userFollowerDto.User);
+                        .FirstOrDefault(n => n.Username == userFollowerDto.User);
 
                     var followerUser = context.Users
-                        .SingleOrDefault(x => x.Username == userFollowerDto.Follower);
+                        .FirstOrDefault(x => x.Username == userFollowerDto.Follower);
 
-                    //
-                    bool alreadyFollowed = userFollowers.Any(f => f.User == user && f.Follower == followerUser);
-                    if (alreadyFollowed)
+                    //check if user or follower are already added, if so, they are tracked and exception appear
+                    var areAdded = userFollowers.Any(x => x.User == user
+                                                          && x.Follower == followerUser);
+                    if (areAdded)
                     {
                         sb.AppendLine("Error: Invalid data.");
                         continue;
