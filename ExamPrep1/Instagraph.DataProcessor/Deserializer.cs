@@ -80,11 +80,20 @@ namespace Instagraph.DataProcessor
             {
                 if (IsValid(userFollowerDto))
                 {
-                    var user = context.Users.AsNoTracking().FirstOrDefault(n => n.Username == userFollowerDto.User);
+                    var user = context.Users
+                        .SingleOrDefault(n => n.Username == userFollowerDto.User);
 
-                    var followerUser = context.Users.AsNoTracking()
-                        .FirstOrDefault(x => x.Username == userFollowerDto.Follower);
-                    
+                    var followerUser = context.Users
+                        .SingleOrDefault(x => x.Username == userFollowerDto.Follower);
+
+                    //
+                    bool alreadyFollowed = userFollowers.Any(f => f.User == user && f.Follower == followerUser);
+                    if (alreadyFollowed)
+                    {
+                        sb.AppendLine("Error: Invalid data.");
+                        continue;
+                    }
+                    //
                     if (user != null && followerUser != null)
                     {
                         var follower = Mapper.Map<UserFollower>(userFollowerDto);
@@ -107,7 +116,7 @@ namespace Instagraph.DataProcessor
             }
 
             context.UsersFollowers.AddRange(userFollowers);
-            Console.WriteLine(sb.ToString().Trim());
+           // Console.WriteLine(sb.ToString().Trim());
             context.SaveChanges();
             return sb.ToString().Trim();
         }
