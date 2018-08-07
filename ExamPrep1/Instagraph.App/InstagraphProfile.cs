@@ -13,26 +13,7 @@ namespace Instagraph.App
                     des => des.ProfilePicture,
                     opt => opt.Ignore());
 
-            //CreateMap<UserDto, User>()
-            //    .ForMember(
-            //        des => des.ProfilePictureId,
-            //        opt => opt.Ignore());
-            //CreateMap<UserDto, User>()
-            //    .ForMember(
-            //        des => des.Posts,
-            //        opt => opt.Ignore());
-            //CreateMap<UserDto, User>()
-            //    .ForMember(
-            //        des => des.UsersFollowing,
-            //        opt => opt.Ignore());
-            //CreateMap<UserDto, User>()
-            //    .ForMember(
-            //        des => des.Followers,
-            //        opt => opt.Ignore());
-            //CreateMap<UserDto, User>()
-            //    .ForMember(
-            //        des => des.Comments,
-            //        opt => opt.Ignore());
+            CreateMap<UserFollowerDto, UserFollower>();
         }
     }
 }

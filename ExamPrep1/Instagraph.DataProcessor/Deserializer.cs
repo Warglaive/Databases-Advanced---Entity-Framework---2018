@@ -47,8 +47,6 @@ namespace Instagraph.DataProcessor
             var sb = new StringBuilder();
             foreach (var userDto in deserializeUsers)
             {
-                // var mapper = Mapper.Configuration.CreateMapper();
-
                 var user = Mapper.Map<User>(userDto);
 
                 var profilePicture = context.Pictures.FirstOrDefault(x => x.Path == userDto.ProfilePicture);
@@ -72,7 +70,56 @@ namespace Instagraph.DataProcessor
 
         public static string ImportFollowers(InstagraphContext context, string jsonString)
         {
-            throw new NotImplementedException();
+            var usersFollowersDto = JsonConvert.DeserializeObject<UserFollowerDto[]>(jsonString);
+
+            var sb = new StringBuilder();
+
+            var usersToBeFollowes = new List<UserFollower>();
+            var followingUsers= new List<UserFollower>();
+
+            foreach (var userFollowerDto in usersFollowersDto)
+            {
+                var user = context.Users.FirstOrDefault(n => n.Username == userFollowerDto.User);
+
+                var follower = context.Users.FirstOrDefault(x => x.Username == userFollowerDto.Follower);
+
+                if (user != null && follower != null)
+                {
+                    if (IsValid(user) && IsValid(follower))
+                    {
+                        var userToBeFollowed = new UserFollower
+                        {
+                            UserId = user.Id,
+                            FollowerId = follower.Id
+                        };
+
+                        var followingUser = new UserFollower
+                        {
+                            UserId = follower.Id
+                        };
+                        usersToBeFollowes.Add(userToBeFollowed);
+                        followingUsers.Add(followingUser);
+
+
+                    }
+                }
+
+                //if (IsValid(follower))
+                //{
+                //    //followers.Add(follower);
+                //    //sb.AppendLine($"Successfully imported Follower {follower.Follower.User} to User {user.User}.");
+                //}
+                //else
+                //{
+                //    sb.AppendLine("Error: Invalid data.");
+                //}
+            }
+            //user.Followers.Add(userToBeFollowed);
+            //user.UsersFollowing.Add(followingUser);
+            ;
+            //context.UsersFollowers.AddRange(followers);
+            context.SaveChanges();
+            return sb.ToString().Trim();
         }
 
         public static string ImportPosts(InstagraphContext context, string xmlString)
