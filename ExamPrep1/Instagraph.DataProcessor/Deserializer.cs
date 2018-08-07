@@ -82,21 +82,17 @@ namespace Instagraph.DataProcessor
                 {
                     var user = context.Users.AsNoTracking().FirstOrDefault(n => n.Username == userFollowerDto.User);
 
-                    var follower = context.Users.AsNoTracking()
+                    var followerUser = context.Users.AsNoTracking()
                         .FirstOrDefault(x => x.Username == userFollowerDto.Follower);
-
-                    if (user != null && follower != null)
+                    
+                    if (user != null && followerUser != null)
                     {
-                        var userFollower = new UserFollower
-                        {
-                            Follower = follower,
-                            FollowerId = follower.Id,
-                            User = user,
-                            UserId = user.Id
-                        };
+                        var follower = Mapper.Map<UserFollower>(userFollowerDto);
+                        follower.User = user;
+                        follower.Follower = followerUser;
 
-                        userFollowers.Add(userFollower);
-                        sb.AppendLine($"Successfully imported Follower {follower.Username} to User {user.Username}.");
+                        userFollowers.Add(follower);
+                        sb.AppendLine($"Successfully imported Follower {followerUser.Username} to User {user.Username}.");
 
                     }
                     else
