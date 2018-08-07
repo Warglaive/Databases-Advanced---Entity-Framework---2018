@@ -74,8 +74,7 @@ namespace Instagraph.DataProcessor
 
             var sb = new StringBuilder();
 
-            var usersToBeFollowes = new List<UserFollower>();
-            var followingUsers= new List<UserFollower>();
+            var userFollowers = new List<UserFollower>();
 
             foreach (var userFollowerDto in usersFollowersDto)
             {
@@ -87,20 +86,15 @@ namespace Instagraph.DataProcessor
                 {
                     if (IsValid(user) && IsValid(follower))
                     {
-                        var userToBeFollowed = new UserFollower
+                        var userFollower = new UserFollower
                         {
-                            UserId = user.Id,
-                            FollowerId = follower.Id
+                            Follower = follower,
+                            FollowerId = follower.Id,
+                            User = user,
+                            UserId = user.Id
                         };
 
-                        var followingUser = new UserFollower
-                        {
-                            UserId = follower.Id
-                        };
-                        usersToBeFollowes.Add(userToBeFollowed);
-                        followingUsers.Add(followingUser);
-
-
+                        userFollowers.Add(userFollower);
                     }
                 }
 
@@ -114,10 +108,7 @@ namespace Instagraph.DataProcessor
                 //    sb.AppendLine("Error: Invalid data.");
                 //}
             }
-            //user.Followers.Add(userToBeFollowed);
-            //user.UsersFollowing.Add(followingUser);
-            ;
-            //context.UsersFollowers.AddRange(followers);
+            context.UsersFollowers.AddRange(userFollowers);
             context.SaveChanges();
             return sb.ToString().Trim();
         }
