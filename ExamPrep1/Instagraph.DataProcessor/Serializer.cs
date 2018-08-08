@@ -1,6 +1,9 @@
 ﻿using System;
-
+using System.Linq;
+using AutoMapper.QueryableExtensions;
 using Instagraph.Data;
+using Instagraph.DataProcessor.Dtos.Import;
+using Newtonsoft.Json;
 
 namespace Instagraph.DataProcessor
 {
@@ -8,7 +11,16 @@ namespace Instagraph.DataProcessor
     {
         public static string ExportUncommentedPosts(InstagraphContext context)
         {
-            throw new NotImplementedException();
+            var uncommentedPosts = context
+                .Posts
+                .Where(x => x.Comments.Any() == false)
+                .OrderBy(x => x.Id)
+                .ProjectTo<UncommentedPostDto>()
+                .ToList();
+
+            var jsonProduct = JsonConvert.SerializeObject(uncommentedPosts, Formatting.Indented);
+
+            return jsonProduct;
         }
 
         public static string ExportPopularUsers(InstagraphContext context)

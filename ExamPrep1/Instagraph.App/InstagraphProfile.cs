@@ -35,6 +35,13 @@ namespace Instagraph.App
             CreateMap<CommentPostDto, Comment>()
                 .ForMember(x => x.PostId,
                     opt => opt.MapFrom(x => x.Id));
+
+
+            CreateMap<Post, UncommentedPostDto>()
+                .ForMember(p => p.Picture,
+                    opt => opt.MapFrom(x => x.Picture.Path))
+                .ForMember(u => u.User,
+                    opt => opt.MapFrom(x => x.User.Username));
         }
     }
 }
