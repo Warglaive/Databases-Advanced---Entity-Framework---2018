@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 using AutoMapper;
 using Newtonsoft.Json;
 using Microsoft.EntityFrameworkCore;
@@ -125,14 +126,48 @@ namespace Instagraph.DataProcessor
             }
 
             context.UsersFollowers.AddRange(userFollowers);
-            // Console.WriteLine(sb.ToString().Trim());
             context.SaveChanges();
             return sb.ToString().Trim();
         }
 
         public static string ImportPosts(InstagraphContext context, string xmlString)
         {
-            throw new NotImplementedException();
+            var sb = new StringBuilder();
+            var serializer = new XmlSerializer(typeof(PostDto[]),
+                new XmlRootAttribute("posts"));
+
+            var deserializedPosts = (PostDto[])serializer.Deserialize(new StringReader(xmlString));
+            var posts = new List<Post>();
+            foreach (var postDto in deserializedPosts)
+            {
+                if (IsValid(postDto))
+                {
+                    var userToCheck = context.Users.SingleOrDefault(x => x.Username == postDto.User);
+                    var pictureToCheck = context.Pictures.SingleOrDefault(x => x.Path == postDto.Picture);
+
+                    if (userToCheck == null || pictureToCheck == null)
+                    {
+                        sb.AppendLine("Error: Invalid data.");
+                        continue;
+                    }
+
+                    var post = Mapper.Map<Post>(postDto);
+                    post.User = userToCheck;
+                    post.Picture = pictureToCheck;
+                    posts.Add(post);
+                    sb.AppendLine($"Successfully imported Post {post.Caption}.");
+                }
+                else
+                {
+                    sb.AppendLine("Error: Invalid data.");
+                    continue;
+                }
+            }
+
+            //Console.WriteLine(sb.ToString().Trim());
+            context.Posts.AddRange(posts);
+            context.SaveChanges();
+            return sb.ToString().Trim();
         }
 
         public static string ImportComments(InstagraphContext context, string xmlString)

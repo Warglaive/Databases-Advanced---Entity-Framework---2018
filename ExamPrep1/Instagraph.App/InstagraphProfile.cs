@@ -20,6 +20,12 @@ namespace Instagraph.App
                     opt => opt.Ignore())
                 .ForMember(x => x.Follower,
                     opt => opt.Ignore());
+
+            CreateMap<PostDto, Post>()
+                .ForMember(x => x.User,
+                    opt => opt.Ignore())
+                .ForMember(x => x.Picture,
+                    opt => opt.Ignore());
         }
     }
 }

@@ -23,7 +23,7 @@ namespace ProductShop.App
 
             var categoryProducts = new List<CategoryProduct>();
 
-            for (int productId = 1; productId <= 200; productId++)
+            for (int productId = 42; productId <= 200; productId++)
             {
                 var categoryId = new Random().Next(1, 12);
 
