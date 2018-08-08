@@ -172,8 +172,49 @@ namespace Instagraph.DataProcessor
 
         public static string ImportComments(InstagraphContext context, string xmlString)
         {
-            throw new NotImplementedException();
+            var sb = new StringBuilder();
+
+            var serializer = new XmlSerializer(typeof(CommentDto[]), new XmlRootAttribute("comments"));
+            var deserializedComments = (CommentDto[])serializer.Deserialize(new MemoryStream(Encoding.UTF8.GetBytes(xmlString)));
+
+            var validComments = new List<Comment>();
+            foreach (var commentDto in deserializedComments)
+            {
+                var user = context.Users.SingleOrDefault(u => u.Username == commentDto.User);
+
+                if (!IsValid(commentDto) || user == null)
+                {
+                    sb.AppendLine("Error: Invalid data.");
+                    continue;
+                }
+                bool isParsed = int.TryParse(commentDto.PostId?.Id, out var parsedId);
+
+                if (!isParsed)
+                {
+                    sb.AppendLine("Error: Invalid data.");
+                    continue;
+                }
+
+                var postId = context.Posts.SingleOrDefault(p => p.Id == parsedId)?.Id;
+                if (postId == null)
+                {
+                    sb.AppendLine("Error: Invalid data.");
+                    continue;
+                }
+
+                sb.AppendLine($"Successfully imported Comment {commentDto.Content}.");
+                var comment = Mapper.Map<Comment>(commentDto);
+                comment.User = user;
+                comment.PostId = postId.Value;
+
+                validComments.Add(comment);
+            }
+            context.Comments.AddRange(validComments);
+            context.SaveChanges();
+
+            return sb.ToString();
         }
+
         //if not working in judge go for IsValid with validator
         public static bool IsValid(object deserializedUser)
         {

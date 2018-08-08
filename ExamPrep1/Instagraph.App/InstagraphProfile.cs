@@ -26,6 +26,15 @@ namespace Instagraph.App
                     opt => opt.Ignore())
                 .ForMember(x => x.Picture,
                     opt => opt.Ignore());
+
+            CreateMap<CommentDto, Comment>()
+                .ForMember(x => x.Content,
+                    opt => opt.MapFrom(src => src.Content))
+                .ForAllOtherMembers(x => x.Ignore());
+
+            CreateMap<CommentPostDto, Comment>()
+                .ForMember(x => x.PostId,
+                    opt => opt.MapFrom(x => x.Id));
         }
     }
 }
