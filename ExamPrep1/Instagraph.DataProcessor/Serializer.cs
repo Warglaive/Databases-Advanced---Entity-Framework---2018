@@ -2,7 +2,7 @@
 using System.Linq;
 using AutoMapper.QueryableExtensions;
 using Instagraph.Data;
-using Instagraph.DataProcessor.Dtos.Import;
+using Instagraph.DataProcessor.Dtos.Export;
 using Newtonsoft.Json;
 
 namespace Instagraph.DataProcessor
@@ -25,7 +25,18 @@ namespace Instagraph.DataProcessor
 
         public static string ExportPopularUsers(InstagraphContext context)
         {
-            throw new NotImplementedException();
+            var users = context
+                .Users
+                .Where(u => u.Posts
+                    .Any(p => p.Comments
+                        .Any(c => u.Followers
+                            .Any(f => f.FollowerId == c.UserId))))
+                .OrderBy(i => i.Id)
+                .ProjectTo<PopularUsersDto>()
+                .ToList();
+
+            var jsonProduct = JsonConvert.SerializeObject(users, Formatting.Indented);
+            return jsonProduct;
         }
 
         public static string ExportCommentsOnPosts(InstagraphContext context)

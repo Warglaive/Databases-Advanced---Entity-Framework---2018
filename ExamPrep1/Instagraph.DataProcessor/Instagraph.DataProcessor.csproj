@@ -14,8 +14,4 @@
     <ProjectReference Include="..\Instagraph.Models\Instagraph.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\Export\" />
-  </ItemGroup>
-
 </Project>

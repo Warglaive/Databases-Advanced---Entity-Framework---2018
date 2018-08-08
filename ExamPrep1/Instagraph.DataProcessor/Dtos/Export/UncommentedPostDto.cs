@@ -1,4 +1,4 @@
-﻿namespace Instagraph.DataProcessor.Dtos.Import
+﻿namespace Instagraph.DataProcessor.Dtos.Export
 {
     public class UncommentedPostDto
     {

@@ -63,7 +63,7 @@ namespace Instagraph.App
 
                 string usersOutput = Serializer.ExportPopularUsers(context);
 
-                File.WriteAllText("files/output/PopularUsers.json", usersOutput);
+                File.WriteAllText("files/output/PopularUsersDto.json", usersOutput);
 
                 string commentsOutput = Serializer.ExportCommentsOnPosts(context);
 

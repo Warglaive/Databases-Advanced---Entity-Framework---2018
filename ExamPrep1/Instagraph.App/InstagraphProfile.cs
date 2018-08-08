@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Instagraph.DataProcessor.Dtos.Export;
 using Instagraph.DataProcessor.Dtos.Import;
 using Instagraph.Models;
 
@@ -42,6 +43,14 @@ namespace Instagraph.App
                     opt => opt.MapFrom(x => x.Picture.Path))
                 .ForMember(u => u.User,
                     opt => opt.MapFrom(x => x.User.Username));
+
+            //CreateMap<User, PopularUsersDto>()
+            //    .ForMember(c => c.Followers,
+            //        opt => opt.MapFrom(x => x.Followers.Count));
+
+            CreateMap<User, PopularUsersDto>()
+                .ForMember(dto => dto.Followers,
+                    f => f.MapFrom(u => u.Followers.Count));
         }
     }
 }
