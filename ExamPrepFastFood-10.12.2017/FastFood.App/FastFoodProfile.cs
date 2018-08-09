@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FastFood.DataProcessor.Dto;
 using FastFood.DataProcessor.Dto.Import;
 using FastFood.Models;
 
@@ -12,6 +11,10 @@ namespace FastFood.App
         {
             CreateMap<EmployeeDto, Employee>()
                 .ForMember(n => n.Position,
+                    opt => opt.Ignore());
+
+            CreateMap<ItemDto, Item>()
+                .ForMember(x => x.Category,
                     opt => opt.Ignore());
         }
     }

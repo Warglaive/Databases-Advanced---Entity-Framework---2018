@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using AutoMapper;
 using FastFood.Data;
@@ -39,7 +40,7 @@ namespace FastFood.DataProcessor
                 employees.Add(employee);
                 sb.AppendLine(string.Format(SuccessMessage, employee.Name));
             }
-            
+
             context.Employees.AddRange(employees);
             context.SaveChanges();
             return sb.ToString().Trim();
@@ -86,7 +87,49 @@ namespace FastFood.DataProcessor
 
         public static string ImportItems(FastFoodDbContext context, string jsonString)
         {
-            throw new NotImplementedException();
+            var items = new List<Item>();
+            var sb = new StringBuilder();
+            var deserializedItems = JsonConvert.DeserializeObject<ItemDto[]>(jsonString);
+            foreach (var itemDto in deserializedItems)
+            {
+                var item = Mapper.Map<Item>(itemDto);
+                var category = GetCategory(context, itemDto.Category);
+                item.Category = category;
+
+                if (!IsValid(item) || !IsValid(item.Category))
+                {
+                    sb.AppendLine(FailureMessage);
+                    continue;
+                }
+                items.Add(item);
+                sb.AppendLine(string.Format(SuccessMessage, item.Name));
+            }
+            context.Items.AddRange(items);
+            context.SaveChanges();
+            return sb.ToString().Trim();
+        }
+
+        private static Category GetCategory(FastFoodDbContext context, string itemCategoryName)
+        {
+            var category = context.Categories.FirstOrDefault(x => x.Name == itemCategoryName);
+            if (category == null)
+            {
+                category = new Category
+                {
+                    Name = itemCategoryName
+                };
+                if (IsValid(category))
+                {
+                    context.Categories.Add(category);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    category = null;
+                }
+            }
+
+            return category;
         }
 
         public static string ImportOrders(FastFoodDbContext context, string xmlString)
