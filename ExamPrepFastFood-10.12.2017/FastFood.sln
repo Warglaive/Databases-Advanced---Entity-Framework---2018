@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFood.App", "FastFood.App\FastFood.App.csproj", "{B9345923-2C8B-46B8-B734-889E9289438D}"
 EndProject
@@ -10,6 +10,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFood.Models", "FastFood.Models\FastFood.Models.csproj", "{0E404A2B-3D56-42A8-B7B5-B6F6F59AC65A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastFood.DataProcessor", "FastFood.DataProcessor\FastFood.DataProcessor.csproj", "{3245DD5A-F585-4896-BF30-AC8B864F15B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{065A1423-F699-43CD-9A92-354BB1403D7C}"
+	ProjectSection(SolutionItems) = preProject
+		Datasets\employees.json = Datasets\employees.json
+		Datasets\items.json = Datasets\items.json
+		Datasets\orders.xml = Datasets\orders.xml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

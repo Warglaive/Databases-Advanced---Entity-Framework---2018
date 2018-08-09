@@ -1,4 +1,5 @@
-﻿using FastFood.Models;
+﻿using FastFood.Data.EntityConfig;
+using FastFood.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace FastFood.Data
@@ -11,6 +12,7 @@ namespace FastFood.Data
         public DbSet<Item> Items { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
+
         public FastFoodDbContext()
         {
         }
@@ -30,6 +32,7 @@ namespace FastFood.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfiguration(new OrderItemConfig());
         }
     }
 }

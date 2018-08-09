@@ -13,7 +13,7 @@ namespace FastFood.Models
         [Key]
         public int Id { get; set; }
 
-        [MinLength(3), MaxLength(30), Required]
+        [StringLength(30), MinLength(3), Required]
         public string Name { get; set; }
 
         [Range(15, 80), Required]

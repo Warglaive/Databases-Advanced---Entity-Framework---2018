@@ -12,7 +12,7 @@ namespace FastFood.Models
         [Key]
         public int Id { get; set; }
 
-        [MinLength(3), MaxLength(30), Required]
+        [StringLength(30, MinimumLength = 3), Required]
         public string Name { get; set; }
 
         public ICollection<Item> Items { get; set; }
