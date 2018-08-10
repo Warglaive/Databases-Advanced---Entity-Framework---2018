@@ -87,17 +87,31 @@ namespace FastFood.DataProcessor
 
         public static string ImportItems(FastFoodDbContext context, string jsonString)
         {
+            //var inputJson = @"[{'Name':'Hamburger','Price':5,'Category':'Beef'},{'Name':'Hamburger','Price':1,'Category':'Beef'}]";
+
             var items = new List<Item>();
             var sb = new StringBuilder();
             var deserializedItems = JsonConvert.DeserializeObject<ItemDto[]>(jsonString);
             foreach (var itemDto in deserializedItems)
             {
                 var item = Mapper.Map<Item>(itemDto);
+
                 var category = GetCategory(context, itemDto.Category);
                 item.Category = category;
 
-                if (!IsValid(item) || !IsValid(item.Category))
+                if (!IsValid(item))
                 {
+                    sb.AppendLine(FailureMessage);
+                    continue;
+                }
+
+                if (!context.Categories.Any(x => x.Name == category.Name))
+                {
+                    if (IsValid(category))
+                    {
+                        context.Categories.Add(category);
+                        context.SaveChanges();
+                    }
                     sb.AppendLine(FailureMessage);
                     continue;
                 }
@@ -106,6 +120,7 @@ namespace FastFood.DataProcessor
             }
             context.Items.AddRange(items);
             context.SaveChanges();
+            Console.WriteLine(sb.ToString().Trim());
             return sb.ToString().Trim();
         }
 
@@ -118,15 +133,6 @@ namespace FastFood.DataProcessor
                 {
                     Name = itemCategoryName
                 };
-                if (IsValid(category))
-                {
-                    context.Categories.Add(category);
-                    context.SaveChanges();
-                }
-                else
-                {
-                    category = null;
-                }
             }
 
             return category;
