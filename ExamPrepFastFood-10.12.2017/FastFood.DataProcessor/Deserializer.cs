@@ -121,9 +121,7 @@ namespace FastFood.DataProcessor
                 context.SaveChanges();
                 sb.AppendLine(string.Format(SuccessMessage, item.Name));
             }
-           // context.Items.AddRange(items);
             context.SaveChanges();
-            // Console.WriteLine(sb.ToString().Trim());
             return sb.ToString().Trim();
         }
 
